@@ -528,6 +528,14 @@ pub fn run() {
                 problems.join("; ")
             };
             let kind = if problems.is_empty() { "info" } else { "error" };
+            // `le-gear-advisor --builds` opens the Builds & AI window right away
+            if std::env::args().any(|a| a == "--builds") {
+                let h = handle.clone();
+                std::thread::spawn(move || {
+                    std::thread::sleep(Duration::from_millis(600));
+                    open_builds(&h);
+                });
+            }
             let h = handle.clone();
             std::thread::spawn(move || {
                 std::thread::sleep(Duration::from_millis(800));

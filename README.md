@@ -23,6 +23,21 @@ profile, and the few facts the guide's conditions depend on live in
 Phase 1 (this state of the repo) is the Rust core plus a CLI so scoring can
 be validated on real tooltips. Phase 2 is the Tauri 2 overlay (`app/`).
 
+## Screenshots
+
+| | |
+|---|---|
+| ![AI verdict: UPGRADE](docs/screenshots/ai-verdict-upgrade.jpg) | ![Auto Compare: both tooltips](docs/screenshots/auto-compare-review.jpg) |
+| **Numpad1 on an amulet** with the character sheet open: the model reads the tooltip crops, the sheet numbers and the build's priorities, and explains the call. | **Auto Compare** shows the worn item next to the hovered one; the overlay judges only against what is on screen and says so when it cannot see it. |
+| ![Cached AI verdict](docs/screenshots/ai-verdict-cached.jpg) | ![Deterministic card](docs/screenshots/deterministic-card.jpg) |
+| **Same item, same equipped, same model**: the stored answer comes back instantly with a "cached" pill, no tokens spent. | **Numpad0** is the deterministic scorer alone: score delta, the top reasons, warnings, in under half a second. |
+
+![Builds & AI window](docs/screenshots/builds-window-top.png)
+
+**Tray > Builds & AI**: paste any guide and a model turns it into stat priorities for that character. Below it, the character facts the build's conditions depend on, one API key per provider, and a model per job with prices:
+
+![AI models section](docs/screenshots/builds-and-ai-window.png)
+
 ## Layout
 
 ```
@@ -386,7 +401,8 @@ development), falling back to `%APPDATA%\LE Gear Advisor\profile`.
 The repo ignores the personal files under `profile/` (`settings.json` with
 your API keys, `character.json`, `builds/`, `ai_cache.json`). On a fresh
 clone copy `profile/settings.example.json` to `profile/settings.json` before
-building; `character.json` is created on first run.
+building; `character.json` is created on first run. `le-gear-advisor --builds` starts
+the overlay with the Builds & AI window open.
 
 ```
 cd app
