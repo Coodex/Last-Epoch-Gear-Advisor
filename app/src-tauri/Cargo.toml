@@ -1,0 +1,26 @@
+[package]
+name = "le-gear-advisor"
+version = "0.1.0"
+edition = "2021"
+description = "Last Epoch gear advisor overlay"
+license = "MIT"
+
+[lib]
+name = "le_gear_advisor_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+le_core = { path = "../../core" }
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+image = { version = "0.25", default-features = false, features = ["png"] }
+xcap = "0.9"
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.61", features = ["Win32_Foundation", "Win32_UI_WindowsAndMessaging"] }

@@ -1,0 +1,13 @@
+target/
+node_modules/
+app/dist/
+app/src-tauri/gen/
+profile/equipped.json
+profile/debug/
+*.log
+# personal state: API keys, cached AI answers, pasted guides, sheet numbers
+profile/settings.json
+profile/ai_cache.json
+profile/builds/
+profile/character.json
+profile/model_prices.json

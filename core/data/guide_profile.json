@@ -1,0 +1,417 @@
+{
+  "name": "Maxroll Paladin Leveling (1.4) - Stats Priorities (steep leveling curve)",
+  "planner_id": "lp4lq0i3",
+  "source": "https://maxroll.gg/last-epoch/build-guides/paladin-leveling-guide",
+  "resistance_cap": 75,
+  "resistance_reference_roll": 30,
+  "tier_target": 5,
+  "stats": [
+    {
+      "key": "ailment_chance",
+      "name": "Ignite / Poison / Bleed chance",
+      "group": "offense",
+      "rank": 1,
+      "weight": 1.0,
+      "inactive_weight": 0.0,
+      "patterns": [
+        "^Chance To Ignite$",
+        "^Chance To Poison$",
+        "^Chance to Inflict Bleed( On Hit)?$"
+      ],
+      "conditions": [
+        {
+          "heavens_bulwark_points": {
+            "max": 4
+          }
+        }
+      ],
+      "note": "worthless once Heaven's Bulwark has 5 points"
+    },
+    {
+      "key": "skill_levels_early",
+      "name": "Level of Javelin / Rive",
+      "group": "offense",
+      "rank": 2,
+      "weight": 1.0,
+      "inactive_weight": 0.0,
+      "patterns": [
+        "Level of Javelin$",
+        "Level of Rive$"
+      ],
+      "conditions": [
+        {
+          "phase": [
+            "early",
+            "intermediate"
+          ]
+        }
+      ],
+      "note": "until the Intermediate setup is done"
+    },
+    {
+      "key": "skill_levels_final",
+      "name": "Level of Multistrike / Healing Hands / Holy Aura / Symbols of Hope",
+      "group": "offense",
+      "rank": 2,
+      "weight": 1.0,
+      "inactive_weight": 0.0,
+      "patterns": [
+        "Level of Multistrike$",
+        "Level of Healing Hands$",
+        "Level of Holy Aura$",
+        "Level of Symbols Of Hope$"
+      ],
+      "conditions": [
+        {
+          "phase": [
+            "final"
+          ]
+        }
+      ],
+      "note": "for the Final setup"
+    },
+    {
+      "key": "judgement_level",
+      "name": "Level of Judgement",
+      "group": "offense",
+      "rank": 2,
+      "weight": 1.4,
+      "inactive_weight": 0.0,
+      "tier_target": 5,
+      "patterns": [
+        "Level of Judgement$"
+      ],
+      "conditions": [
+        {
+          "phase": [
+            "final"
+          ]
+        }
+      ],
+      "note": "big DPS lever, aim for Tier 5"
+    },
+    {
+      "key": "dot",
+      "name": "Elemental DoT / DoT / Fire damage",
+      "group": "offense",
+      "rank": 3,
+      "weight": 0.85,
+      "patterns": [
+        "^Increased Elemental Damage Over Time$",
+        "^Increased Damage Over Time$",
+        "^Increased Fire Damage$",
+        "^Sentinel Increased Fire Damage Over Time$"
+      ]
+    },
+    {
+      "key": "healing_effectiveness",
+      "name": "Healing Effectiveness",
+      "group": "offense",
+      "rank": 4,
+      "weight": 0.75,
+      "patterns": [
+        "^Increased Healing Effectiveness$"
+      ],
+      "note": "also 1 flat spell damage per 5% and fire penetration, so weighted above its list position"
+    },
+    {
+      "key": "melee_attack_speed",
+      "name": "Increased Melee Attack Speed",
+      "group": "offense",
+      "rank": 5,
+      "weight": 0.45,
+      "patterns": [
+        "^Increased Melee Attack Speed$"
+      ]
+    },
+    {
+      "key": "spell_damage",
+      "name": "Spell Damage",
+      "group": "offense",
+      "rank": 6,
+      "weight": 0.3,
+      "inactive_weight": 0.05,
+      "patterns": [
+        "^Increased Spell Damage$",
+        "^Added Spell Damage For Swords$"
+      ],
+      "conditions": [
+        {
+          "nagasa_scymitar_equipped": true
+        }
+      ],
+      "note": "only with Nagasa Scymitar"
+    },
+    {
+      "key": "health_regen",
+      "name": "Health Regen",
+      "group": "defense",
+      "rank": 1,
+      "weight": 1.0,
+      "inactive_weight": 0.05,
+      "patterns": [
+        "^Health Regen per Second$",
+        "^Health Regeneration$",
+        "^Increased Health Regen$"
+      ],
+      "conditions": [
+        {
+          "healing_hands_specced": false
+        }
+      ],
+      "note": "near zero once Healing Hands is specialised"
+    },
+    {
+      "key": "health",
+      "name": "Health",
+      "group": "defense",
+      "rank": 2,
+      "weight": 1.0,
+      "patterns": [
+        "^Added Health$",
+        "^Increased Health$",
+        "^Hybrid Health$",
+        "^Added Health and Added Health Regeneration$"
+      ],
+      "note": "guide: resistances mostly come from skills/passives, prefer Health"
+    },
+    {
+      "key": "res_physical",
+      "name": "Physical Resistance",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.8,
+      "patterns": [
+        "^Physical Resistance$",
+        "^Physical Resistance and .*Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "physical"
+      },
+      "note": "bonus multiplier: focus on physical"
+    },
+    {
+      "key": "res_fire",
+      "name": "Fire Resistance",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.45,
+      "patterns": [
+        "^Fire Resistance$",
+        "^Fire Resistance and .*Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "fire"
+      }
+    },
+    {
+      "key": "res_cold",
+      "name": "Cold Resistance",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.45,
+      "patterns": [
+        "^Cold Resistance$",
+        "^Cold Resistance and .*Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "cold"
+      }
+    },
+    {
+      "key": "res_lightning",
+      "name": "Lightning Resistance",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.45,
+      "patterns": [
+        "^Lightning Resistance$",
+        "^Lightning Resistance and .*Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "lightning"
+      }
+    },
+    {
+      "key": "res_necrotic",
+      "name": "Necrotic Resistance",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.45,
+      "patterns": [
+        "^Necrotic Resistance$",
+        "^Necrotic Resistance and .*Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "necrotic"
+      }
+    },
+    {
+      "key": "res_void",
+      "name": "Void Resistance",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.45,
+      "patterns": [
+        "^Void Resistance$",
+        "^Void Resistance and .*Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "void"
+      }
+    },
+    {
+      "key": "res_poison",
+      "name": "Poison Resistance",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.45,
+      "patterns": [
+        "^Poison Resistance$",
+        "^Poison Resistance and .*Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "poison"
+      }
+    },
+    {
+      "key": "res_all",
+      "name": "All / Elemental Resistances",
+      "group": "defense",
+      "rank": 3,
+      "weight": 0.5,
+      "patterns": [
+        "^All Resistances$",
+        "^Elemental Resistance$"
+      ],
+      "saturation": {
+        "kind": "resistance",
+        "element": "all"
+      },
+      "note": "elemental res should already be near cap from skills and passives"
+    },
+    {
+      "key": "ward",
+      "name": "Ward per Second / Ward Decay Threshold",
+      "group": "defense",
+      "rank": 4,
+      "weight": 0.35,
+      "patterns": [
+        "^Ward Per Second and Ward Decay Threshold$",
+        "^Ward Per Second$",
+        "^Ward Decay Threshold$"
+      ]
+    },
+    {
+      "key": "endurance",
+      "name": "Endurance",
+      "group": "defense",
+      "rank": 5,
+      "weight": 0.35,
+      "inactive_weight": 0.0,
+      "patterns": [
+        "^Endurance$",
+        "^Endurance Threshold$"
+      ],
+      "conditions": [
+        {
+          "solarum_plate_equipped": false
+        }
+      ],
+      "note": "worthless once Solarum Plate is equipped"
+    },
+    {
+      "key": "vitality",
+      "name": "Vitality",
+      "group": "defense",
+      "rank": 6,
+      "weight": 0.3,
+      "patterns": [
+        "^Vitality$"
+      ]
+    },
+    {
+      "key": "ailment_defense",
+      "name": "Frailty / Slow / Chill chance",
+      "group": "defense",
+      "rank": 7,
+      "weight": 0.25,
+      "patterns": [
+        "^Frailty Chance$",
+        "^Chance To Slow$",
+        "^Chance To Chill$"
+      ]
+    },
+    {
+      "key": "block_chance",
+      "name": "Block Chance",
+      "group": "defense",
+      "rank": 8,
+      "weight": 0.25,
+      "inactive_weight": 0.0,
+      "patterns": [
+        "^Added Block Chance$",
+        "^Block Chance and Effectiveness$"
+      ],
+      "conditions": [
+        {
+          "heavens_bulwark_points": {
+            "min": 5
+          }
+        }
+      ],
+      "note": "only after 5 points in Heaven's Bulwark"
+    },
+    {
+      "key": "block_effectiveness",
+      "name": "Block Effectiveness",
+      "group": "defense",
+      "rank": 9,
+      "weight": 0.2,
+      "inactive_weight": 0.0,
+      "patterns": [
+        "^Added Block Effectiveness$",
+        "^Block Chance and Effectiveness$"
+      ],
+      "conditions": [
+        {
+          "heavens_bulwark_points": {
+            "min": 5
+          }
+        }
+      ],
+      "note": "only after 5 points in Heaven's Bulwark"
+    },
+    {
+      "key": "armour",
+      "name": "Armour",
+      "group": "defense",
+      "rank": 10,
+      "weight": 0.12,
+      "patterns": [
+        "^Armor$",
+        "^Increased Armor$",
+        "^Added Armor$"
+      ]
+    },
+    {
+      "key": "dodge",
+      "name": "Dodge",
+      "group": "defense",
+      "rank": 11,
+      "weight": 0.08,
+      "patterns": [
+        "^Added Dodge Rating$",
+        "^Increased Dodge Rating$",
+        "^Critical Strike Avoidance and Added Dodge Rating$"
+      ]
+    }
+  ]
+}

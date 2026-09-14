@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* The overlay window is transparent and click-through: nothing may paint a background. */
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  overflow: hidden;
+  user-select: none;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+@theme {
+  --color-le-gold: #d4a94e;
+  --color-le-gold-dim: #8a6d2c;
+  --color-le-purple: #8b5cf6;
+  --color-le-upgrade: #34d399;
+  --color-le-worse: #f87171;
+  --color-le-side: #fbbf24;
+  --color-le-review: #818cf8;
+  --color-le-ink: #0d0b09;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes card-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+}
+
+.card-enter {
+  animation: card-in 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.card-leave {
+  animation: card-out 220ms ease-in both;
+}
+
+.glass {
+  background: linear-gradient(160deg, rgba(24, 20, 14, 0.9), rgba(10, 8, 6, 0.92));
+  border: 1px solid rgba(212, 169, 78, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 18px 40px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* ---- Builds & AI window (a normal, opaque window sharing the bundle) ---- */
+.builds {
+  user-select: text;
+  font-size: 13px;
+}
+.builds .section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-le-gold-dim);
+}
+.builds .panel {
+  border: 1px solid rgba(212, 169, 78, 0.18);
+  border-radius: 10px;
+  background: linear-gradient(160deg, rgba(28, 23, 16, 0.9), rgba(14, 11, 8, 0.95));
+  padding: 12px;
+}
+.builds .label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  color: #a1a1aa;
+}
+.builds .field {
+  width: 100%;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  background: #121009;
+  color: #f4f4f5;
+  padding: 6px 8px;
+  font-size: 13px;
+  outline: none;
+}
+.builds .field:focus {
+  border-color: var(--color-le-gold);
+  box-shadow: 0 0 0 2px rgba(212, 169, 78, 0.2);
+}
+.builds .btn {
+  border: 1px solid #52525b;
+  border-radius: 6px;
+  background: #1c1917;
+  color: #e4e4e7;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.builds .btn:hover:not(:disabled) {
+  border-color: var(--color-le-gold);
+  color: #fff;
+}
+.builds .btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.builds .btn-primary {
+  border-color: var(--color-le-gold);
+  background: rgba(212, 169, 78, 0.18);
+  color: var(--color-le-gold);
+  font-weight: 600;
+}
+.builds .btn-danger:hover:not(:disabled) {
+  border-color: var(--color-le-worse);
+  color: var(--color-le-worse);
+}
+.builds .kbd {
+  border: 1px solid #52525b;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 5px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: #e4e4e7;
+}
+.builds .spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(212, 169, 78, 0.3);
+  border-top-color: var(--color-le-gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.builds .fact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #27272a;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.builds .chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #3f3f46;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+  color: #e4e4e7;
+  background: #16130d;
+}
+.builds .chip-active {
+  border-color: var(--color-le-gold);
+  color: var(--color-le-gold);
+}
+.builds select.field option,
+.builds select.field optgroup {
+  background: #121009;
+  color: #f4f4f5;
+}

@@ -1,0 +1,38 @@
+[package]
+name = "le_core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Last Epoch gear advisor core: tooltip parsing, guide profile, scoring, comparison"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+regex.workspace = true
+strsim.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+once_cell.workspace = true
+# Pure-Rust image decoding for OCR input (png/jpeg/bmp only)
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp"] }
+# Pure-Rust HTTP client for refreshing the guide planner (rustls, no OpenSSL)
+ureq = { version = "2", features = ["tls"] }
+# Base64 for image blocks sent to the Claude API (pure Rust)
+base64 = "0.22"
+
+[target.'cfg(windows)'.dependencies]
+# Windows built-in OCR (Windows.Media.Ocr). Pure-Rust bindings, no native build tools.
+windows = { version = "0.61", features = [
+    "Foundation",
+    "Foundation_Collections",
+    "Globalization",
+    "Graphics_Imaging",
+    "Media_Ocr",
+    "Storage_Streams",
+    "Security_Cryptography",
+] }
+
+[dev-dependencies]

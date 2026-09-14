@@ -1,0 +1,2520 @@
+{
+ "id": "lp4lq0i3",
+ "date": "2026-03-26 15:29:47",
+ "name": "1.4 Sentinel Leveling",
+ "class": "Sentinel",
+ "data": {
+  "embeds": [],
+  "profiles": [
+   {
+    "name": "Starting Setup (lvl 1 - 4)",
+    "class": 2,
+    "mastery": 0,
+    "level": 4,
+    "items": {
+     "head": 50,
+     "body": 51,
+     "waist": 52,
+     "finger2": 53,
+     "finger1": 54,
+     "feet": 55,
+     "relic": 56,
+     "hands": 57,
+     "neck": 58,
+     "weapon": 59
+    },
+    "idols": [],
+    "blessings": [],
+    "passives": {
+     "history": [
+      0,
+      0
+     ],
+     "position": 2
+    },
+    "weaver": {
+     "history": [],
+     "position": 0
+    },
+    "weaverItems": [],
+    "skillTrees": {
+     "ht16aw": {
+      "history": [
+       9
+      ],
+      "position": 1
+     }
+    },
+    "activeSkills": [
+     null,
+     "Lunge",
+     null,
+     null,
+     "HammerThrow"
+    ],
+    "specializedSkills": [
+     "HammerThrow",
+     null
+    ],
+    "quests": [
+     48,
+     1,
+     49,
+     94,
+     3,
+     5,
+     2,
+     34,
+     97,
+     35,
+     6,
+     96,
+     99,
+     29,
+     100,
+     9,
+     10,
+     13,
+     39,
+     14,
+     28,
+     12,
+     116,
+     37,
+     20,
+     24,
+     30,
+     36,
+     25,
+     31,
+     33,
+     32,
+     42,
+     44,
+     47,
+     43,
+     46,
+     45,
+     50,
+     51,
+     53,
+     93,
+     58,
+     56,
+     54,
+     55,
+     57,
+     114,
+     121,
+     118,
+     119,
+     115,
+     120,
+     117,
+     123,
+     122,
+     124,
+     27
+    ],
+    "season": 4
+   },
+   {
+    "name": "Early Setup (lvl 5 - 26)",
+    "class": 2,
+    "mastery": 3,
+    "level": 26,
+    "items": {
+     "head": 3,
+     "body": 60,
+     "waist": 61,
+     "finger2": 62,
+     "finger1": 63,
+     "weapon": 64,
+     "relic": 18,
+     "neck": 6,
+     "feet": 4,
+     "hands": 65
+    },
+    "idols": [],
+    "blessings": [],
+    "passives": {
+     "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      49,
+      1,
+      106,
+      106,
+      106,
+      106,
+      106,
+      71,
+      71,
+      71,
+      71,
+      71,
+      69,
+      69,
+      69,
+      69,
+      72,
+      114,
+      114,
+      114,
+      114,
+      114
+     ],
+     "position": 35
+    },
+    "weaver": {
+     "history": [],
+     "position": 0
+    },
+    "weaverItems": [],
+    "skillTrees": {
+     "sndr1": {
+      "history": [
+       2,
+       3,
+       3,
+       3,
+       24,
+       3,
+       15,
+       15,
+       19,
+       21,
+       23
+      ],
+      "position": 11
+     },
+     "hh7pa3": {
+      "history": [
+       20,
+       20,
+       20,
+       20,
+       1,
+       11,
+       13,
+       15,
+       15,
+       15,
+       10
+      ],
+      "position": 11
+     },
+     "javeli": {
+      "history": [
+       2,
+       20,
+       20,
+       31,
+       32,
+       32,
+       32,
+       35,
+       33,
+       33,
+       33
+      ],
+      "position": 11
+     }
+    },
+    "activeSkills": [
+     "HolyAura",
+     "Lunge",
+     "SigilsOfHope",
+     "Javelin",
+     "Rive1"
+    ],
+    "specializedSkills": [
+     "Rive1",
+     "HealingHands",
+     "Javelin",
+     null,
+     null
+    ],
+    "quests": [
+     48,
+     1,
+     49,
+     94,
+     3,
+     5,
+     2,
+     34,
+     97,
+     35,
+     6,
+     96,
+     99,
+     29,
+     100,
+     9,
+     10,
+     13,
+     39,
+     14,
+     28,
+     12,
+     116,
+     37,
+     20,
+     24,
+     30,
+     36,
+     25,
+     31,
+     33,
+     32,
+     42,
+     44,
+     47,
+     43,
+     46,
+     45,
+     50,
+     51,
+     53,
+     93,
+     58,
+     56,
+     54,
+     55,
+     57,
+     114,
+     121,
+     118,
+     119,
+     115,
+     120,
+     117,
+     123,
+     122,
+     124,
+     27
+    ],
+    "season": 4
+   },
+   {
+    "name": "Intermediate Setup (lvl 27 - 36)",
+    "class": 2,
+    "mastery": 3,
+    "level": 36,
+    "items": {
+     "neck": 5,
+     "relic": 8,
+     "finger2": 19,
+     "hands": 22,
+     "weapon": 23,
+     "offhand": 24,
+     "finger1": 25,
+     "head": 20,
+     "body": 1,
+     "waist": 7,
+     "feet": 9
+    },
+    "idols": [],
+    "blessings": [],
+    "passives": {
+     "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      49,
+      1,
+      106,
+      106,
+      106,
+      106,
+      106,
+      71,
+      71,
+      71,
+      71,
+      71,
+      69,
+      69,
+      69,
+      69,
+      72,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      83,
+      83,
+      83,
+      83,
+      83,
+      90,
+      90,
+      90,
+      90,
+      90
+     ],
+     "position": 50
+    },
+    "weaver": {
+     "history": [],
+     "position": 0
+    },
+    "weaverItems": [],
+    "skillTrees": {
+     "sndr1": {
+      "history": [
+       2,
+       3,
+       3,
+       3,
+       24,
+       3,
+       15,
+       15,
+       19,
+       21,
+       23,
+       15,
+       15,
+       26,
+       27
+      ],
+      "position": 15
+     },
+     "javeli": {
+      "history": [
+       2,
+       20,
+       20,
+       31,
+       32,
+       32,
+       32,
+       35,
+       33,
+       33,
+       33,
+       33,
+       5,
+       6,
+       19
+      ],
+      "position": 15
+     },
+     "si4lgl": {
+      "history": [
+       32,
+       32,
+       32,
+       32,
+       32,
+       8,
+       8,
+       7,
+       7,
+       7,
+       9,
+       15,
+       15,
+       23,
+       23
+      ],
+      "position": 15
+     },
+     "hh7pa3": {
+      "history": [
+       20,
+       20,
+       20,
+       20,
+       1,
+       11,
+       13,
+       15,
+       15,
+       15,
+       10,
+       10,
+       10,
+       9,
+       9
+      ],
+      "position": 15
+     }
+    },
+    "activeSkills": [
+     "HolyAura",
+     "Lunge",
+     "SigilsOfHope",
+     "Javelin",
+     "Rive1"
+    ],
+    "specializedSkills": [
+     "Rive1",
+     "HealingHands",
+     "Javelin",
+     "SigilsOfHope",
+     null
+    ],
+    "quests": [
+     48,
+     1,
+     49,
+     94,
+     3,
+     5,
+     2,
+     34,
+     97,
+     35,
+     6,
+     96,
+     99,
+     29,
+     100,
+     9,
+     10,
+     13,
+     39,
+     14,
+     28,
+     12,
+     116,
+     37,
+     20,
+     24,
+     30,
+     36,
+     25,
+     31,
+     33,
+     32,
+     42,
+     44,
+     47,
+     43,
+     46,
+     45,
+     50,
+     51,
+     53,
+     93,
+     58,
+     56,
+     54,
+     55,
+     57,
+     114,
+     121,
+     118,
+     119,
+     115,
+     120,
+     117,
+     123,
+     122,
+     124,
+     27
+    ],
+    "season": 4
+   },
+   {
+    "name": "Final Setup (lvl 38 - 70)",
+    "class": 2,
+    "mastery": 3,
+    "level": 70,
+    "items": {
+     "neck": 14,
+     "finger1": 38,
+     "finger2": 39,
+     "offhand": 41,
+     "head": 15,
+     "body": 11,
+     "waist": 16,
+     "relic": 21,
+     "feet": 28,
+     "weapon": 26,
+     "hands": 17
+    },
+    "idols": [],
+    "blessings": [],
+    "passives": {
+     "history": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      49,
+      1,
+      106,
+      106,
+      106,
+      106,
+      106,
+      71,
+      71,
+      71,
+      71,
+      71,
+      69,
+      69,
+      69,
+      69,
+      72,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      114,
+      83,
+      83,
+      83,
+      83,
+      83,
+      90,
+      90,
+      90,
+      90,
+      90,
+      77,
+      77,
+      77,
+      77,
+      77,
+      88,
+      88,
+      88,
+      88,
+      88,
+      119,
+      119,
+      119,
+      119,
+      119,
+      65,
+      65,
+      65,
+      65,
+      65,
+      83,
+      83,
+      77,
+      77,
+      89,
+      89,
+      89,
+      89,
+      72,
+      72,
+      27,
+      27,
+      27
+     ],
+     "position": 83
+    },
+    "weaver": {
+     "history": [],
+     "position": 0
+    },
+    "weaverItems": [],
+    "skillTrees": {
+     "sndr1": {
+      "history": [
+       2,
+       3,
+       3,
+       3,
+       24,
+       3,
+       15,
+       15,
+       19,
+       21,
+       23,
+       15,
+       15,
+       26,
+       27
+      ],
+      "position": 15
+     },
+     "javeli": {
+      "history": [
+       2,
+       20,
+       20,
+       31,
+       32,
+       32,
+       32,
+       35,
+       33,
+       33,
+       33,
+       33,
+       5,
+       6,
+       19
+      ],
+      "position": 15
+     },
+     "si4lgl": {
+      "history": [
+       32,
+       32,
+       32,
+       32,
+       32,
+       8,
+       8,
+       7,
+       7,
+       7,
+       9,
+       15,
+       15,
+       23,
+       23,
+       28,
+       24,
+       26,
+       26,
+       26
+      ],
+      "position": 20
+     },
+     "ah443": {
+      "history": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       8,
+       7,
+       7,
+       7,
+       7,
+       7,
+       9,
+       9,
+       19,
+       19,
+       16,
+       14,
+       14,
+       14,
+       14
+      ],
+      "position": 20
+     },
+     "multis": {
+      "history": [
+       2,
+       3,
+       3,
+       3,
+       4,
+       4,
+       2,
+       24,
+       16,
+       16,
+       16,
+       5,
+       7,
+       7,
+       7,
+       3,
+       3,
+       2,
+       2,
+       2
+      ],
+      "position": 20
+     },
+     "pa67ju": {
+      "history": [
+       19,
+       19,
+       15,
+       27,
+       29,
+       24,
+       24,
+       10,
+       21,
+       10,
+       21,
+       10,
+       21,
+       10,
+       21,
+       1,
+       1,
+       2,
+       2,
+       2
+      ],
+      "position": 20
+     },
+     "hh7pa3": {
+      "history": [
+       20,
+       20,
+       20,
+       20,
+       1,
+       11,
+       13,
+       15,
+       15,
+       15,
+       10,
+       10,
+       10,
+       9,
+       9,
+       9,
+       9,
+       17,
+       17,
+       17
+      ],
+      "position": 20
+     }
+    },
+    "activeSkills": [
+     "HolyAura",
+     "Lunge",
+     "SigilsOfHope",
+     "Judgement",
+     "Multistrike"
+    ],
+    "specializedSkills": [
+     "Multistrike",
+     "HealingHands",
+     "Judgement",
+     "SigilsOfHope",
+     "HolyAura"
+    ],
+    "quests": [
+     48,
+     1,
+     49,
+     94,
+     3,
+     5,
+     2,
+     34,
+     97,
+     35,
+     6,
+     96,
+     99,
+     29,
+     100,
+     9,
+     10,
+     13,
+     39,
+     14,
+     28,
+     12,
+     116,
+     37,
+     20,
+     24,
+     30,
+     36,
+     25,
+     31,
+     33,
+     32,
+     42,
+     44,
+     47,
+     43,
+     46,
+     45,
+     50,
+     51,
+     53,
+     93,
+     58,
+     56,
+     54,
+     55,
+     57,
+     114,
+     121,
+     118,
+     119,
+     115,
+     120,
+     117,
+     123,
+     122,
+     124,
+     27
+    ],
+    "season": 4
+   }
+  ],
+  "items": {
+   "1": {
+    "itemType": 1,
+    "subType": 60,
+    "affixes": [
+     {
+      "id": 563,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 45,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "2": {
+    "itemType": 15,
+    "subType": 4,
+    "affixes": [
+     {
+      "id": 38,
+      "tier": 3,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1,
+     1
+    ]
+   },
+   "3": {
+    "itemType": 0,
+    "subType": 35,
+    "affixes": [
+     {
+      "id": 726,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 501,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 45,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "4": {
+    "itemType": 3,
+    "subType": 2,
+    "affixes": [
+     {
+      "id": 28,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 27,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 501,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "5": {
+    "itemType": 20,
+    "subType": 1,
+    "affixes": [
+     {
+      "id": 72,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 12,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "6": {
+    "itemType": 20,
+    "subType": 1,
+    "affixes": [
+     {
+      "id": 72,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 30,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 55,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "7": {
+    "itemType": 2,
+    "subType": 4,
+    "affixes": [
+     {
+      "id": 27,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 12,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "8": {
+    "itemType": 22,
+    "subType": 40,
+    "affixes": [
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 43,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 654,
+      "tier": 5,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "9": {
+    "itemType": 3,
+    "subType": 4,
+    "affixes": [
+     {
+      "id": 28,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 27,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "10": {
+    "itemType": 18,
+    "subType": 5,
+    "affixes": [
+     {
+      "id": 43,
+      "tier": 4,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "11": {
+    "itemType": 1,
+    "subType": 39,
+    "affixes": [
+     {
+      "id": 652,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 45,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 52,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 371,
+      "tier": 4,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1,
+     1
+    ]
+   },
+   "12": {
+    "itemType": 20,
+    "subType": 1,
+    "affixes": [],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "13": {
+    "itemType": 18,
+    "subType": 13,
+    "affixes": [
+     {
+      "id": 43,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 3,
+      "tier": 5,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "14": {
+    "itemType": 20,
+    "subType": 1,
+    "affixes": [
+     {
+      "id": 32,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 100,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 824,
+      "tier": 5,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "15": {
+    "itemType": 0,
+    "subType": 38,
+    "affixes": [
+     {
+      "id": 726,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 52,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 371,
+      "tier": 5,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1,
+     1
+    ]
+   },
+   "16": {
+    "itemType": 2,
+    "subType": 8,
+    "affixes": [
+     {
+      "id": 27,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 36,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 100,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 75,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "17": {
+    "itemType": 4,
+    "subType": 5,
+    "affixes": [
+     {
+      "id": 2,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 429,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 36,
+      "tier": 5,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "18": {
+    "itemType": 22,
+    "subType": 40,
+    "affixes": [
+     {
+      "id": 825,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 654,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "19": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 43,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "20": {
+    "itemType": 0,
+    "subType": 60,
+    "affixes": [
+     {
+      "id": 726,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 45,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1,
+     1
+    ]
+   },
+   "21": {
+    "itemType": 22,
+    "subType": 43,
+    "affixes": [
+     {
+      "id": 25,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 600,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 596,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 825,
+      "tier": 4,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "22": {
+    "itemType": 4,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 2,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 429,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "23": {
+    "itemType": 8,
+    "subType": 2,
+    "affixes": [
+     {
+      "id": 72,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 2,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 56,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1,
+     1
+    ]
+   },
+   "24": {
+    "itemType": 18,
+    "subType": 5,
+    "affixes": [
+     {
+      "id": 3,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 43,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "25": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 43,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "26": {
+    "itemType": 9,
+    "subType": 7,
+    "affixes": [
+     {
+      "id": 72,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 2,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 56,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 57,
+      "tier": 4,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "27": {
+    "itemType": 16,
+    "subType": 0,
+    "affixes": [
+     {
+      "id": 55,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 2,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 44,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "28": {
+    "itemType": 3,
+    "subType": 9,
+    "affixes": [
+     {
+      "id": 28,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 27,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 36,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 505,
+      "tier": 4,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1,
+     1
+    ]
+   },
+   "29": {
+    "itemType": 2,
+    "subType": 1,
+    "affixes": [
+     {
+      "id": 27,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 30,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 12,
+      "tier": 3,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "30": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 825,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 3,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "31": {
+    "itemType": 20,
+    "subType": 5,
+    "affixes": [
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 30,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 55,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 90,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "32": {
+    "itemType": 0,
+    "subType": 33,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 90,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 505,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "33": {
+    "itemType": 4,
+    "subType": 1,
+    "affixes": [
+     {
+      "id": 2,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 90,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 3,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "34": {
+    "itemType": 3,
+    "subType": 1,
+    "affixes": [
+     {
+      "id": 28,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 27,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 501,
+      "tier": 3,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "35": {
+    "itemType": 22,
+    "subType": 38,
+    "affixes": [
+     {
+      "id": 825,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 501,
+      "tier": 3,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "36": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 825,
+      "tier": 3,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 3,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "37": {
+    "itemType": 1,
+    "subType": 59,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 505,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "38": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 43,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 100,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 824,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 4,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "39": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 43,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 100,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 824,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 4,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "41": {
+    "itemType": 18,
+    "subType": 12,
+    "affixes": [
+     {
+      "id": 3,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 43,
+      "tier": 5,
+      "roll": 1
+     },
+     {
+      "id": 46,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 74,
+      "tier": 5,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1,
+     1
+    ]
+   },
+   "50": {
+    "itemType": 0,
+    "subType": 33,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 90,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 505,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "51": {
+    "itemType": 1,
+    "subType": 59,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 505,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "52": {
+    "itemType": 2,
+    "subType": 0,
+    "affixes": [
+     {
+      "id": 22,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 30,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "53": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 825,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "54": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 825,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "55": {
+    "itemType": 3,
+    "subType": 0,
+    "affixes": [
+     {
+      "id": 28,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "56": {
+    "itemType": 22,
+    "subType": 38,
+    "affixes": [
+     {
+      "id": 825,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 22,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 501,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "57": {
+    "itemType": 4,
+    "subType": 0,
+    "affixes": [
+     {
+      "id": 2,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 90,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "58": {
+    "itemType": 20,
+    "subType": 5,
+    "affixes": [
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 30,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 55,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 90,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "59": {
+    "itemType": 16,
+    "subType": 0,
+    "affixes": [
+     {
+      "id": 55,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 2,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 44,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "60": {
+    "itemType": 1,
+    "subType": 35,
+    "affixes": [
+     {
+      "id": 563,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 501,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 45,
+      "tier": 2,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "61": {
+    "itemType": 2,
+    "subType": 2,
+    "affixes": [
+     {
+      "id": 27,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 30,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 12,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "62": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 825,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "63": {
+    "itemType": 21,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 501,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 825,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1
+    ]
+   },
+   "64": {
+    "itemType": 12,
+    "subType": 2,
+    "affixes": [
+     {
+      "id": 72,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 2,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 68,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 54,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   },
+   "65": {
+    "itemType": 4,
+    "subType": 3,
+    "affixes": [
+     {
+      "id": 2,
+      "tier": 4,
+      "roll": 1
+     },
+     {
+      "id": 72,
+      "tier": 2,
+      "roll": 1
+     },
+     {
+      "id": 25,
+      "tier": 1,
+      "roll": 1
+     },
+     {
+      "id": 429,
+      "tier": 1,
+      "roll": 1
+     }
+    ],
+    "implicits": [
+     1,
+     1
+    ]
+   }
+  },
+  "lootFilters": [],
+  "options": {},
+  "activeEmbed": -1,
+  "activeProfile": 0,
+  "notes": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Lootfilter : ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "https://github.com/terekt/Maxroll-Loot-Filters/blob/main/Maxroll%20-%20Sentinel%20Leveling%201.4.xml",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "type": "autolink",
+        "version": 1,
+        "rel": null,
+        "target": null,
+        "title": null,
+        "url": "https://github.com/terekt/Maxroll-Loot-Filters/blob/main/Maxroll%20-%20Sentinel%20Leveling%201.4.xml"
+       }
+      ],
+      "direction": "ltr",
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1
+     }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  }
+ },
+ "userId": 185057,
+ "public": true,
+ "folder": 11,
+ "accessed": 1788539926,
+ "mainset": "Judgement",
+ "category": "leveling",
+ "game": "le",
+ "average_rating": 5,
+ "total_ratings": 2,
+ "metadata": "{\"skills\":[\"Lunge\",\"HammerThrow\"]}",
+ "search_metadata": null,
+ "season": "4",
+ "shared": false,
+ "type": "planner",
+ "tags": null,
+ "user": {
+  "id": 185057,
+  "username": "Terek",
+  "active": 3
+ }
+}

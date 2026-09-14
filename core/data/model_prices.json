@@ -1,0 +1,113 @@
+{
+  "note": "USD per 1M tokens [input, output], list prices as known on 2026-09-12. Matched by longest prefix of the model id. Copy this file to profile/model_prices.json to add or override entries; the Builds & AI window shows 'price unknown' for ids not listed here.",
+  "prices": {
+    "claude-opus-4-1": [
+      15,
+      75
+    ],
+    "claude-opus-4": [
+      15,
+      75
+    ],
+    "claude-opus-4-5": [
+      5,
+      25
+    ],
+    "claude-sonnet-4-5": [
+      3,
+      15
+    ],
+    "claude-sonnet-4": [
+      3,
+      15
+    ],
+    "claude-haiku-4-5": [
+      1,
+      5
+    ],
+    "claude-3-5-haiku": [
+      0.8,
+      4
+    ],
+    "gpt-5": [
+      1.25,
+      10
+    ],
+    "gpt-5-mini": [
+      0.25,
+      2
+    ],
+    "gpt-5-nano": [
+      0.05,
+      0.4
+    ],
+    "gpt-4.1": [
+      2,
+      8
+    ],
+    "gpt-4.1-mini": [
+      0.4,
+      1.6
+    ],
+    "gpt-4.1-nano": [
+      0.1,
+      0.4
+    ],
+    "gpt-4o": [
+      2.5,
+      10
+    ],
+    "gpt-4o-mini": [
+      0.15,
+      0.6
+    ],
+    "o3": [
+      2,
+      8
+    ],
+    "o4-mini": [
+      1.1,
+      4.4
+    ],
+    "deepseek-chat": [
+      0.28,
+      0.42
+    ],
+    "deepseek-reasoner": [
+      0.28,
+      0.42
+    ],
+    "kimi-k2-0905-preview": [
+      0.6,
+      2.5
+    ],
+    "kimi-k2-0711-preview": [
+      0.6,
+      2.5
+    ],
+    "kimi-k2-thinking": [
+      0.6,
+      2.5
+    ],
+    "kimi-k2-turbo-preview": [
+      1.15,
+      8
+    ],
+    "gpt-5.1": [
+      1.25,
+      10
+    ],
+    "gpt-5.2": [
+      1.75,
+      14
+    ],
+    "gpt-5-pro": [
+      15,
+      120
+    ],
+    "gpt-5.2-pro": [
+      21,
+      168
+    ]
+  }
+}

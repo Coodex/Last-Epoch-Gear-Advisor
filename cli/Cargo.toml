@@ -1,0 +1,18 @@
+[package]
+name = "le-advisor"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Command line for the Last Epoch gear advisor core"
+
+[[bin]]
+name = "le-advisor"
+path = "src/main.rs"
+
+[dependencies]
+le_core = { path = "../core" }
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+clap = { version = "4", features = ["derive"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp"] }
