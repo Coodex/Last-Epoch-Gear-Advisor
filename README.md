@@ -1,5 +1,15 @@
 # LE Gear Advisor
 
+[![Download installer](https://img.shields.io/github/v/release/Coodex/Last-Epoch-Gear-Advisor?label=installer&logo=windows&color=d4a94e)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest/download/LE.Gear.Advisor_0.1.0_x64-setup.exe)
+[![Release](https://img.shields.io/github/release-date/Coodex/Last-Epoch-Gear-Advisor?label=released)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest)
+![Rust](https://img.shields.io/badge/Rust-2021-orange?logo=rust)
+![Tauri 2](https://img.shields.io/badge/Tauri-2-24C8D8?logo=tauri&logoColor=white)
+![Svelte 5](https://img.shields.io/badge/Svelte-5-FF3E00?logo=svelte&logoColor=white)
+![Windows 11](https://img.shields.io/badge/Windows-11-0078D4?logo=windows11&logoColor=white)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+
+**[Download the Windows installer (v0.1.0)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest)** · per-user NSIS setup, no admin rights needed. All releases: [releases page](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases).
+
 Tells you whether an item in your **inventory** is an upgrade over what you
 have equipped, for the Maxroll Paladin leveling guide
 (<https://maxroll.gg/last-epoch/build-guides/paladin-leveling-guide>), and why.
