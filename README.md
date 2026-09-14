@@ -1,7 +1,7 @@
 # LE Gear Advisor
 
-[![Download installer](https://img.shields.io/github/v/release/Coodex/Last-Epoch-Gear-Advisor?label=installer&logo=windows&color=d4a94e)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest/download/LE.Gear.Advisor_0.1.0_x64-setup.exe)
-[![Release](https://img.shields.io/github/release-date/Coodex/Last-Epoch-Gear-Advisor?label=released)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest)
+[![Download installer](https://img.shields.io/badge/installer-v0.1.0%20x64-d4a94e?logo=windows&logoColor=white)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest/download/LE.Gear.Advisor_0.1.0_x64-setup.exe)
+[![Releases](https://img.shields.io/badge/releases-GitHub-2f81f7?logo=github)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases)
 ![Rust](https://img.shields.io/badge/Rust-2021-orange?logo=rust)
 ![Tauri 2](https://img.shields.io/badge/Tauri-2-24C8D8?logo=tauri&logoColor=white)
 ![Svelte 5](https://img.shields.io/badge/Svelte-5-FF3E00?logo=svelte&logoColor=white)
