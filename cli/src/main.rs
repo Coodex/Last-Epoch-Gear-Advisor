@@ -32,13 +32,13 @@ use le_core::planner::GearPlan;
 use le_core::scorer::{score_item, ScoreContext};
 
 #[derive(Parser)]
-#[command(name = "le-advisor", version, about = "Last Epoch gear advisor (Maxroll Paladin leveling guide)")]
+#[command(name = "le-advisor", version, about = "Last Epoch gear advisor: judges bag items against your build guide's stat priorities")]
 struct Cli {
     /// Directory holding character.json and equipped.json
     #[arg(long, default_value = "profile", global = true)]
     profile_dir: PathBuf,
     /// Guide profile JSON (weights + conditions); default: the active build in profile/builds
-    /// (the embedded Paladin leveling profile when none is active)
+    /// (the built-in example profile, Maxroll Paladin leveling, when none is active)
     #[arg(long, global = true)]
     guide_profile: Option<PathBuf>,
     /// Print JSON instead of text

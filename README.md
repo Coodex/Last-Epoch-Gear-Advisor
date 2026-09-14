@@ -1,7 +1,7 @@
 # LE Gear Advisor
 
-[![Download installer](https://img.shields.io/badge/installer-v0.1.0%20x64-d4a94e?logo=windows&logoColor=white)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest/download/LE.Gear.Advisor_0.1.0_x64-setup.exe)
-[![Releases](https://img.shields.io/badge/releases-GitHub-2f81f7?logo=github)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases)
+[![Download installer](https://img.shields.io/github/v/release/Coodex/Last-Epoch-Gear-Advisor?label=installer&logo=windows&logoColor=white&color=d4a94e)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest)
+[![Release date](https://img.shields.io/github/release-date/Coodex/Last-Epoch-Gear-Advisor?label=released)](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases)
 ![Rust](https://img.shields.io/badge/Rust-2021-orange?logo=rust)
 ![Tauri 2](https://img.shields.io/badge/Tauri-2-24C8D8?logo=tauri&logoColor=white)
 ![Svelte 5](https://img.shields.io/badge/Svelte-5-FF3E00?logo=svelte&logoColor=white)
@@ -12,7 +12,7 @@
 SIDEGRADE or WORSE against the item you are wearing, scored for *your* build
 guide, with the reasons, right next to the tooltip.
 
-**[Download the Windows installer](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest)** · per-user setup, no admin rights, nothing to configure for the built-in Paladin leveling guide.
+**[Download the Windows installer](https://github.com/Coodex/Last-Epoch-Gear-Advisor/releases/latest)** · per-user setup, no admin rights. Works for any build: paste your guide once, or use the built-in example (Maxroll's Paladin leveling guide).
 
 - **Numpad0** · instant verdict from the guide's stat priorities (deterministic, offline, under half a second).
 - **Numpad1** · the same, then a language model reads both tooltips and explains the call in plain words.
@@ -42,8 +42,9 @@ built into Windows, and draws a click-through card.
 3. Open your inventory, hover an item, press **Numpad0**.
 4. Read the card. It stays until you move the mouse.
 
-That is the whole loop. The built-in profile is the Maxroll Paladin leveling
-guide; for any other build see [Your build](#your-build-paste-a-guide).
+That is the whole loop. Out of the box it scores for the built-in example
+profile (Maxroll's Paladin leveling guide); for your own build, paste its
+guide once, see [Your build](#your-build-paste-a-guide).
 
 ## Hotkeys
 
@@ -128,6 +129,34 @@ and the Character section of the window lists them as checkboxes or
 counters. Answer them once; they save on change.
 
 ![Builds window](docs/screenshots/builds-window-top.png)
+
+## Security and privacy
+
+- **Pixels only.** The overlay screenshots the region around the cursor while
+  Last Epoch is in the foreground, reads it with the OCR built into Windows,
+  and draws a click-through window. It never reads game files or memory,
+  sends no input to the game, and touches no account or online character data.
+- **Nothing phones home.** There is no telemetry, no update check, no server
+  of ours. The only network calls are the ones you enable: the AI provider
+  you configured (tooltip crops, OCR text, your sheet numbers, the build's
+  priorities and a pasted guide), and `le-advisor update-guide` if you run it
+  (fetches a Maxroll planner).
+- **Keys stay local, in plain text.** API keys live in `profile/settings.json`
+  on your disk, readable by anything running as your user. Prefer the
+  provider's environment variable if you want them out of the file. The repo
+  ignores that file and every other personal file under `profile/`.
+- **Debug captures** (tray toggle, off by default) write full screenshots of
+  the capture box to `profile/debug/`. They can include chat text; look
+  before sharing them.
+- **Model output is data.** AI-written profiles are validated (regexes must
+  compile, every fact declared, weights bounded) and stored as JSON; the UI
+  renders everything as text, never as HTML. Regexes use Rust's `regex` crate,
+  which cannot backtrack.
+- **Build.** Pure Rust and TypeScript, no native build tools. Dependencies
+  are audited with `cargo audit` and `npm audit` at release time (v0.1.1: no
+  known vulnerabilities; three advisory warnings on transitive crates that
+  only matter on Linux or are unmaintained Unicode tables). The webview runs
+  under a strict Content Security Policy.
 
 ## Tray menu
 
@@ -352,3 +381,12 @@ one tooltip line per row exactly as the game shows them. Regenerating the
 game data (only when the game or the guide changes): `py -3.12 tools/build_data.py [guide-url-or-planner-id]`, then rebuild.
 
 Not built: the optional WebSocket + PWA mirror for a second screen.
+
+### Data and credits
+
+Affix, base and unique data in `core/data/` is derived from Maxroll's public
+Last Epoch data and planner (`tools/build_data.py`), trimmed to what the
+parser needs; the game data itself belongs to Eleventh Hour Games. The
+built-in profile encodes the stat priorities of Maxroll's Paladin leveling
+guide, with credit to its author. This project is not affiliated with
+Eleventh Hour Games or Maxroll.

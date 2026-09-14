@@ -601,24 +601,27 @@ fn describe_priorities(profile: &GuideProfile, state: &CharacterState) -> String
     out
 }
 
-fn describe_state(state: &CharacterState) -> String {
+fn describe_state(state: &CharacterState, profile: &GuideProfile) -> String {
     let mut out = format!("Character: level {}, phase {}, endurance {:.0}%\n", state.level, state.phase(), state.endurance);
     out.push_str("Resistances (cap 75%): ");
     out.push_str(&state.resistance_list().iter().map(|(e, v)| format!("{e} {v:.0}%")).collect::<Vec<_>>().join(", "));
     out.push('\n');
-    let mut facts: Vec<String> = vec![
-        format!("Heaven's Bulwark points {}", state.heavens_bulwark_points),
-        format!("Healing Hands specialised {}", state.healing_hands_specced),
-        format!("Solarum Plate equipped {}", state.solarum_plate_equipped),
-        format!("Nagasa Scymitar equipped {}", state.nagasa_scymitar_equipped),
-    ];
+    let mut facts: Vec<String> = Vec::new();
+    if profile.uses_paladin_facts() {
+        facts.push(format!("Heaven's Bulwark points {}", state.heavens_bulwark_points));
+        facts.push(format!("Healing Hands specialised {}", state.healing_hands_specced));
+        facts.push(format!("Solarum Plate equipped {}", state.solarum_plate_equipped));
+        facts.push(format!("Nagasa Scymitar equipped {}", state.nagasa_scymitar_equipped));
+    }
     let mut flags: Vec<_> = state.flags.iter().collect();
     flags.sort();
     facts.extend(flags.into_iter().map(|(k, v)| format!("{} {}", k.replace('_', " "), v)));
     let mut counters: Vec<_> = state.counters.iter().collect();
     counters.sort();
     facts.extend(counters.into_iter().map(|(k, v)| format!("{} {}", k.replace('_', " "), v)));
-    out.push_str(&format!("Facts: {}\n", facts.join("; ")));
+    if !facts.is_empty() {
+        out.push_str(&format!("Build facts: {}\n", facts.join("; ")));
+    }
     out
 }
 
@@ -662,7 +665,7 @@ pub fn analyze_item(client: &Client, req: ItemRequest<'_>) -> Result<ItemVerdict
     text.push_str("\n\n");
     text.push_str(&describe_priorities(req.profile, req.state));
     text.push('\n');
-    text.push_str(&describe_state(req.state));
+    text.push_str(&describe_state(req.state, req.profile));
     text.push_str("\nOCR of the hovered tooltip:\n");
     text.push_str(&req.candidate_text);
     if !req.game_diff.is_empty() {

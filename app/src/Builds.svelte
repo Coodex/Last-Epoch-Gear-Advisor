@@ -396,7 +396,7 @@
             </label>
             <label class="block">
               <span class="label">Build name</span>
-              <input class="field" bind:value={buildName} placeholder="e.g. Maxroll Paladin leveling" />
+              <input class="field" bind:value={buildName} placeholder="e.g. Warpath Void Knight (Maxroll)" />
             </label>
           </div>
           <label class="block">

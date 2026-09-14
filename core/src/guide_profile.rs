@@ -325,6 +325,14 @@ impl GuideProfile {
         self.stats.iter().filter(|s| s.is_active(state)).collect()
     }
 
+    /// True when any rule's conditions use the built-in Paladin fields
+    /// (Heaven's Bulwark points, Healing Hands, Solarum Plate, Nagasa Scymitar).
+    pub fn uses_paladin_facts(&self) -> bool {
+        self.stats.iter().flat_map(|s| s.conditions.iter()).any(|c| {
+            c.heavens_bulwark_points.is_some() || c.healing_hands_specced.is_some() || c.solarum_plate_equipped.is_some() || c.nagasa_scymitar_equipped.is_some()
+        })
+    }
+
     /// Derive the phase from this profile's level brackets when the state
     /// does not pin one, and seed missing facts with their defaults.
     pub fn apply_to_state(&self, state: &mut CharacterState) {
