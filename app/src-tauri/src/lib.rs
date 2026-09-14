@@ -171,6 +171,8 @@ fn run_scan(app: AppHandle, mode: ScanMode) {
             }
         }
         *scanning.lock().unwrap() = false;
+        // the Builds window shows level/resistances/facts: keep it current after a scan
+        let _ = app.emit_to("builds", "builds-opened", ());
     });
 }
 
