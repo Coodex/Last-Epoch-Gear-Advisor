@@ -263,11 +263,11 @@ names, a weight, a group (offense/defense), optional conditions, an optional
 - Resistances score `weight * min(value, gap) / reference_roll`, where
   `gap = cap - (current - contribution of the item being replaced)`; capped
   elements are worth nothing and the note says so.
-- Conditions: `phase`, `level`, build `flags` and `counters` (declared as
-  `facts` in the profile), and the built-in Paladin profile's
-  `heavens_bulwark_points`, `healing_hands_specced`, `solarum_plate_equipped`,
-  `nagasa_scymitar_equipped`. A failed condition switches the rule to
-  `inactive_weight`.
+- Conditions: `phase`, `level`, and build `flags` and `counters` (declared as
+  `facts` in the profile; the built-in Paladin profile declares
+  `heavens_bulwark_points`, `healing_hands_specced`, `solarum_plate_equipped`
+  and `nagasa_scymitar_equipped` this way). A failed condition switches the
+  rule to `inactive_weight`.
 - Affixes not on the list score zero and are listed; unreadable lines are
   reported. Nothing about an item aborts parsing.
 - Verdict: candidate score minus the equipped item's score in that slot
@@ -323,11 +323,8 @@ The built-in Paladin leveling priorities:
   "resistances": { "fire": 89, "cold": 84, "lightning": 93, "physical": 142,
                    "necrotic": 58, "void": 114, "poison": 23 },
   "endurance": 46,
-  "heavens_bulwark_points": 0,
-  "healing_hands_specced": true,
-  "solarum_plate_equipped": false,
-  "nagasa_scymitar_equipped": false,
-  "flags": {}, "counters": {}
+  "flags": { "healing_hands_specced": true },
+  "counters": { "heavens_bulwark_points": 5 }
 }
 ```
 
@@ -335,7 +332,9 @@ The built-in Paladin leveling priorities:
 intermediate, 38+ final; AI profiles bring their own brackets); `phase`
 overrides it. `resistances` are the sheet's uncapped totals (the number in
 parentheses when the sheet shows `75% (89%)`), which is what the sheet reader
-stores. Every field has a default.
+stores. Every field has a default. `flags` / `counters` hold the active
+build's facts, editable in the Builds window; files from 0.1 that still carry
+the Paladin facts as top-level keys are migrated on load.
 
 ### Tooltip parsing
 

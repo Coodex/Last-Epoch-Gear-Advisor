@@ -43,14 +43,6 @@ pub struct Condition {
     pub phase: Option<Vec<Phase>>,
     #[serde(default)]
     pub level: Option<IntRange>,
-    #[serde(default)]
-    pub heavens_bulwark_points: Option<IntRange>,
-    #[serde(default)]
-    pub healing_hands_specced: Option<bool>,
-    #[serde(default)]
-    pub solarum_plate_equipped: Option<bool>,
-    #[serde(default)]
-    pub nagasa_scymitar_equipped: Option<bool>,
     /// Build-specific yes/no facts (declared in the profile's `facts`), all must match.
     /// A flag missing from the character state counts as false.
     #[serde(default, skip_serializing_if = "HashMap::is_empty")]
@@ -71,20 +63,6 @@ impl Condition {
             if !range.contains(state.level) {
                 return false;
             }
-        }
-        if let Some(range) = &self.heavens_bulwark_points {
-            if !range.contains(state.heavens_bulwark_points) {
-                return false;
-            }
-        }
-        if self.healing_hands_specced.map_or(false, |v| v != state.healing_hands_specced) {
-            return false;
-        }
-        if self.solarum_plate_equipped.map_or(false, |v| v != state.solarum_plate_equipped) {
-            return false;
-        }
-        if self.nagasa_scymitar_equipped.map_or(false, |v| v != state.nagasa_scymitar_equipped) {
-            return false;
         }
         for (key, wanted) in &self.flags {
             if state.flag(key) != *wanted {
@@ -107,23 +85,6 @@ impl Condition {
         }
         if let Some(r) = &self.level {
             parts.push(format!("level {}-{}", r.min.unwrap_or(1), r.max.map(|m| m.to_string()).unwrap_or_else(|| "max".into())));
-        }
-        if let Some(r) = &self.heavens_bulwark_points {
-            parts.push(match (r.min, r.max) {
-                (Some(min), None) => format!("Heaven's Bulwark >= {min} points"),
-                (None, Some(max)) => format!("Heaven's Bulwark <= {max} points"),
-                (Some(min), Some(max)) => format!("Heaven's Bulwark {min}-{max} points"),
-                (None, None) => "Heaven's Bulwark any".into(),
-            });
-        }
-        if let Some(v) = self.healing_hands_specced {
-            parts.push(format!("Healing Hands {}", if v { "specialised" } else { "not specialised" }));
-        }
-        if let Some(v) = self.solarum_plate_equipped {
-            parts.push(format!("Solarum Plate {}", if v { "equipped" } else { "not equipped" }));
-        }
-        if let Some(v) = self.nagasa_scymitar_equipped {
-            parts.push(format!("Nagasa Scymitar {}", if v { "equipped" } else { "not equipped" }));
         }
         let mut flags: Vec<_> = self.flags.iter().collect();
         flags.sort();
@@ -325,12 +286,23 @@ impl GuideProfile {
         self.stats.iter().filter(|s| s.is_active(state)).collect()
     }
 
-    /// True when any rule's conditions use the built-in Paladin fields
-    /// (Heaven's Bulwark points, Healing Hands, Solarum Plate, Nagasa Scymitar).
-    pub fn uses_paladin_facts(&self) -> bool {
-        self.stats.iter().flat_map(|s| s.conditions.iter()).any(|c| {
-            c.heavens_bulwark_points.is_some() || c.healing_hands_specced.is_some() || c.solarum_plate_equipped.is_some() || c.nagasa_scymitar_equipped.is_some()
-        })
+    /// The declared fact with this key, if any (for labels in explanations).
+    pub fn fact(&self, key: &str) -> Option<&Fact> {
+        self.facts.iter().find(|f| f.key == key)
+    }
+
+    /// The character's values for this profile's declared facts, as
+    /// "label value" strings in profile order. Flags / counters the profile
+    /// does not declare (left over from another build) are not listed: no
+    /// condition can reference them, so they do not affect any verdict.
+    pub fn describe_facts(&self, state: &CharacterState) -> Vec<String> {
+        self.facts
+            .iter()
+            .map(|fact| match fact.kind.as_str() {
+                "counter" => format!("{} {}", fact.label, state.counter(&fact.key)),
+                _ => format!("{} {}", fact.label, if state.flag(&fact.key) { "yes" } else { "no" }),
+            })
+            .collect()
     }
 
     /// Derive the phase from this profile's level brackets when the state
@@ -398,6 +370,21 @@ mod tests {
     use super::*;
 
     #[test]
+    fn embedded_profile_declares_its_facts_and_uses_only_them() {
+        let profile = GuideProfile::embedded();
+        let keys: Vec<&str> = profile.facts.iter().map(|f| f.key.as_str()).collect();
+        assert_eq!(keys, ["heavens_bulwark_points", "healing_hands_specced", "solarum_plate_equipped", "nagasa_scymitar_equipped"]);
+        // validate() already rejects undeclared references; make sure the conditions are really there
+        let conditions: Vec<&Condition> = profile.stats.iter().flat_map(|s| s.conditions.iter()).collect();
+        assert!(conditions.iter().any(|c| c.counters.contains_key("heavens_bulwark_points")));
+        assert!(conditions.iter().any(|c| c.flags.contains_key("healing_hands_specced")));
+        let mut state = CharacterState::default();
+        profile.apply_to_state(&mut state);
+        assert_eq!(state.counter("heavens_bulwark_points"), 0);
+        assert_eq!(profile.describe_facts(&state)[0], "Heaven's Bulwark points 0");
+    }
+
+    #[test]
     fn embedded_profile_compiles_and_has_both_groups() {
         let profile = GuideProfile::embedded();
         assert!(profile.stats.iter().any(|s| s.group == StatGroup::Offense));
@@ -410,12 +397,15 @@ mod tests {
     fn conditions_hold_and_describe() {
         let mut state = CharacterState::default();
         state.level = 40;
-        state.heavens_bulwark_points = 3;
-        let until_bulwark = Condition { heavens_bulwark_points: Some(IntRange { min: None, max: Some(4) }), ..Default::default() };
+        state.counters.insert("heavens_bulwark_points".into(), 3);
+        let until_bulwark = Condition {
+            counters: HashMap::from([("heavens_bulwark_points".to_string(), IntRange { min: None, max: Some(4) })]),
+            ..Default::default()
+        };
         assert!(until_bulwark.holds(&state));
-        state.heavens_bulwark_points = 5;
+        state.counters.insert("heavens_bulwark_points".into(), 5);
         assert!(!until_bulwark.holds(&state));
-        assert!(until_bulwark.describe().contains("<= 4"));
+        assert_eq!(until_bulwark.describe(), "heavens bulwark points <= 4");
         let final_only = Condition { phase: Some(vec![Phase::Final]), ..Default::default() };
         assert!(final_only.holds(&state)); // level 40 = final
         state.level = 20;

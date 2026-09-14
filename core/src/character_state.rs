@@ -48,8 +48,13 @@ impl fmt::Display for Phase {
 }
 
 /// `character.json`. Every field has a default so a partial file works.
+///
+/// Build-specific facts (skill points, "is X equipped") live in `flags` and
+/// `counters`, declared by the active guide profile's `facts`. Files written
+/// before 0.2 carried the built-in Paladin facts as top-level keys; those are
+/// migrated into the maps on load (see `RawCharacterState`).
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(default)]
+#[serde(default, from = "RawCharacterState")]
 pub struct CharacterState {
     pub level: u32,
     /// Overrides the level-derived phase when set.
@@ -61,16 +66,84 @@ pub struct CharacterState {
     /// maximum Health and Mana from the sheet (0 = not read yet)
     pub health: f64,
     pub mana: f64,
-    pub heavens_bulwark_points: u32,
-    pub healing_hands_specced: bool,
-    pub solarum_plate_equipped: bool,
-    pub nagasa_scymitar_equipped: bool,
     /// Build-specific yes/no facts declared by the active guide profile.
     #[serde(default, skip_serializing_if = "HashMap::is_empty")]
     pub flags: HashMap<String, bool>,
     /// Build-specific counters (skill points etc.) declared by the active guide profile.
     #[serde(default, skip_serializing_if = "HashMap::is_empty")]
     pub counters: HashMap<String, u32>,
+}
+
+/// Legacy top-level keys of the built-in Paladin profile's facts (pre-0.2
+/// `character.json`), now ordinary counters / flags with the same names.
+pub const LEGACY_COUNTER_KEYS: [&str; 1] = ["heavens_bulwark_points"];
+pub const LEGACY_FLAG_KEYS: [&str; 3] = ["healing_hands_specced", "solarum_plate_equipped", "nagasa_scymitar_equipped"];
+
+/// On-disk shape: the current fields plus the legacy top-level facts, so an
+/// old file still loads and its facts land in `counters` / `flags`. A value
+/// already present in the maps wins over the legacy key, and a legacy key at
+/// its default (0 / false) is dropped: a missing counter reads as 0 and a
+/// missing flag as false anyway.
+#[derive(Deserialize)]
+#[serde(default)]
+struct RawCharacterState {
+    level: u32,
+    phase: Option<Phase>,
+    resistances: HashMap<String, f64>,
+    endurance: f64,
+    health: f64,
+    mana: f64,
+    flags: HashMap<String, bool>,
+    counters: HashMap<String, u32>,
+    heavens_bulwark_points: Option<u32>,
+    healing_hands_specced: Option<bool>,
+    solarum_plate_equipped: Option<bool>,
+    nagasa_scymitar_equipped: Option<bool>,
+}
+
+impl Default for RawCharacterState {
+    fn default() -> Self {
+        let base = CharacterState::default();
+        RawCharacterState {
+            level: base.level,
+            phase: base.phase,
+            resistances: base.resistances,
+            endurance: base.endurance,
+            health: base.health,
+            mana: base.mana,
+            flags: base.flags,
+            counters: base.counters,
+            heavens_bulwark_points: None,
+            healing_hands_specced: None,
+            solarum_plate_equipped: None,
+            nagasa_scymitar_equipped: None,
+        }
+    }
+}
+
+impl From<RawCharacterState> for CharacterState {
+    fn from(raw: RawCharacterState) -> Self {
+        let mut flags = raw.flags;
+        let mut counters = raw.counters;
+        if let Some(v) = raw.heavens_bulwark_points.filter(|v| *v != 0) {
+            counters.entry(LEGACY_COUNTER_KEYS[0].into()).or_insert(v);
+        }
+        for (key, value) in LEGACY_FLAG_KEYS.iter().zip([raw.healing_hands_specced, raw.solarum_plate_equipped, raw.nagasa_scymitar_equipped]) {
+            if value == Some(true) {
+                flags.entry((*key).into()).or_insert(true);
+            }
+        }
+        CharacterState {
+            level: raw.level,
+            phase: raw.phase,
+            resistances: raw.resistances,
+            endurance: raw.endurance,
+            health: raw.health,
+            mana: raw.mana,
+            flags,
+            counters,
+        }
+    }
 }
 
 impl Default for CharacterState {
@@ -82,10 +155,6 @@ impl Default for CharacterState {
             endurance: 0.0,
             health: 0.0,
             mana: 0.0,
-            heavens_bulwark_points: 0,
-            healing_hands_specced: false,
-            solarum_plate_equipped: false,
-            nagasa_scymitar_equipped: false,
             flags: HashMap::new(),
             counters: HashMap::new(),
         }
@@ -194,8 +263,37 @@ mod tests {
         assert_eq!(state.phase(), Phase::Final);
         assert_eq!(state.resistance("fire"), 62.0);
         assert_eq!(state.resistance("cold"), 0.0);
-        assert!(!state.healing_hands_specced);
+        assert!(!state.flag("healing_hands_specced"));
         let overridden: CharacterState = serde_json::from_str(r#"{"level": 49, "phase": "intermediate"}"#).unwrap();
         assert_eq!(overridden.phase(), Phase::Intermediate);
+    }
+
+    #[test]
+    fn legacy_paladin_keys_migrate_into_facts() {
+        let old = r#"{"level": 40, "heavens_bulwark_points": 5, "healing_hands_specced": true,
+                      "solarum_plate_equipped": false, "nagasa_scymitar_equipped": true}"#;
+        let state: CharacterState = serde_json::from_str(old).unwrap();
+        assert_eq!(state.counter("heavens_bulwark_points"), 5);
+        assert!(state.flag("healing_hands_specced"));
+        assert!(!state.flag("solarum_plate_equipped"));
+        assert!(!state.flags.contains_key("solarum_plate_equipped")); // default value: not carried over
+        assert!(state.flag("nagasa_scymitar_equipped"));
+        // saved again, the legacy keys are gone and the maps carry the values
+        let json = serde_json::to_string(&state).unwrap();
+        assert!(!json.contains("\"healing_hands_specced\":true,\"solarum"));
+        assert!(json.contains("\"counters\""));
+        assert!(json.contains("\"flags\""));
+        let reloaded: CharacterState = serde_json::from_str(&json).unwrap();
+        assert_eq!(reloaded.counter("heavens_bulwark_points"), 5);
+
+        // the maps win over a stale legacy key
+        let mixed = r#"{"heavens_bulwark_points": 2, "counters": {"heavens_bulwark_points": 7}}"#;
+        let state: CharacterState = serde_json::from_str(mixed).unwrap();
+        assert_eq!(state.counter("heavens_bulwark_points"), 7);
+
+        // an all-default legacy file migrates to empty maps
+        let defaults = r#"{"heavens_bulwark_points": 0, "healing_hands_specced": false}"#;
+        let state: CharacterState = serde_json::from_str(defaults).unwrap();
+        assert!(state.flags.is_empty() && state.counters.is_empty());
     }
 }

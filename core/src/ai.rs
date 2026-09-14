@@ -613,19 +613,7 @@ fn describe_state(state: &CharacterState, profile: &GuideProfile) -> String {
     out.push_str("Resistances (cap 75%): ");
     out.push_str(&state.resistance_list().iter().map(|(e, v)| format!("{e} {v:.0}%")).collect::<Vec<_>>().join(", "));
     out.push('\n');
-    let mut facts: Vec<String> = Vec::new();
-    if profile.uses_paladin_facts() {
-        facts.push(format!("Heaven's Bulwark points {}", state.heavens_bulwark_points));
-        facts.push(format!("Healing Hands specialised {}", state.healing_hands_specced));
-        facts.push(format!("Solarum Plate equipped {}", state.solarum_plate_equipped));
-        facts.push(format!("Nagasa Scymitar equipped {}", state.nagasa_scymitar_equipped));
-    }
-    let mut flags: Vec<_> = state.flags.iter().collect();
-    flags.sort();
-    facts.extend(flags.into_iter().map(|(k, v)| format!("{} {}", k.replace('_', " "), v)));
-    let mut counters: Vec<_> = state.counters.iter().collect();
-    counters.sort();
-    facts.extend(counters.into_iter().map(|(k, v)| format!("{} {}", k.replace('_', " "), v)));
+    let facts = profile.describe_facts(state);
     if !facts.is_empty() {
         out.push_str(&format!("Build facts: {}\n", facts.join("; ")));
     }
@@ -757,7 +745,7 @@ RULES
 - patterns are Rust-style regexes matched case-insensitively against the affix DISPLAY NAMES listed below (and the raw names). Use the exact names from the list; anchor with ^ and $ when the name is exact; several patterns per stat are fine. Never invent affix names that are not in the list.
 - Resistances: one stat per element the guide cares about (or a "res_all" stat with element "all"), each with a saturation block, plus a physical-resistance stat if mentioned; the scorer only counts the part of a roll that fits under the 75% cap.
 - Skill levels appear as "Level of <Skill>" in the list; ailment chances as "Chance To Ignite" etc.
-- conditions: every field set in one condition must hold; use phase/level for "until setup X", and facts (flags/counters) for things the scorer cannot see, e.g. "once <skill> has 5 points" -> a counter fact "<skill>_points" with a counters condition {{"min": 5}}. Every flag/counter used in a condition MUST be declared in "facts". Declare only facts you actually use. Do NOT use the Paladin-only keys (heavens_bulwark_points, healing_hands_specced, solarum_plate_equipped, nagasa_scymitar_equipped) unless this IS the Maxroll Paladin leveling guide.
+- conditions: every field set in one condition must hold; use phase/level for "until setup X", and facts (flags/counters) for things the scorer cannot see, e.g. "once <skill> has 5 points" -> a counter fact "<skill>_points" with a counters condition {{"min": 5}}. Every flag/counter used in a condition MUST be declared in "facts". Declare only facts you actually use, named for THIS guide's skills and items (the reference profile's facts are Paladin-specific examples, not a fixed set).
 - Cover both offense and defense; while leveling, prioritise the stats the guide lists under its stat priorities, then health/resistances/endurance style defenses. 8-25 stats is typical.
 - Weights must be within 0..=5; keys unique; do not output comments.
 

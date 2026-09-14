@@ -243,7 +243,7 @@ mod tests {
         let item = item_with(22, 40, &[(HEALTH_REGEN, 5, None), (HEALTH, 3, None)]);
         let mut state = state_at(49);
         let before = score_item(&item, &ScoreContext { data, profile: &profile, state: &state, replaced: None });
-        state.healing_hands_specced = true;
+        state.flags.insert("healing_hands_specced".into(), true);
         let after = score_item(&item, &ScoreContext { data, profile: &profile, state: &state, replaced: None });
         let regen_before = before.affixes.iter().find(|a| a.stat_key.as_deref() == Some("health_regen")).unwrap().contribution;
         let regen_after = after.affixes.iter().find(|a| a.stat_key.as_deref() == Some("health_regen")).unwrap().contribution;

@@ -133,10 +133,6 @@ export interface CharacterState {
   endurance: number;
   health: number;
   mana: number;
-  heavens_bulwark_points: number;
-  healing_hands_specced: boolean;
-  solarum_plate_equipped: boolean;
-  nagasa_scymitar_equipped: boolean;
   flags?: Record<string, boolean>;
   counters?: Record<string, number>;
 }

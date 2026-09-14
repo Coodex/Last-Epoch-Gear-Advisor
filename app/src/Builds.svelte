@@ -446,18 +446,7 @@
             </div>
             <div class="h-px bg-le-gold/15"></div>
             <div class="text-[11px] text-zinc-400">Facts the active build's priorities depend on. The scorer cannot see these in tooltips, so keep them current (saved automatically).</div>
-            {#if active.builtin}
-              <div class="grid gap-2 sm:grid-cols-2">
-                <label class="fact"><span>Heaven's Bulwark points</span>
-                  <input class="field w-20" type="number" min="0" max="10" bind:value={character.heavens_bulwark_points} oninput={scheduleCharacterSave} /></label>
-                <label class="fact"><span>Healing Hands specialised</span>
-                  <input type="checkbox" bind:checked={character.healing_hands_specced} onchange={scheduleCharacterSave} /></label>
-                <label class="fact"><span>Solarum Plate equipped</span>
-                  <input type="checkbox" bind:checked={character.solarum_plate_equipped} onchange={scheduleCharacterSave} /></label>
-                <label class="fact"><span>Nagasa Scymitar equipped</span>
-                  <input type="checkbox" bind:checked={character.nagasa_scymitar_equipped} onchange={scheduleCharacterSave} /></label>
-              </div>
-            {:else if active.facts.length === 0}
+            {#if active.facts.length === 0}
               <div class="text-[12px] text-zinc-500">This build's priorities have no conditional facts.</div>
             {:else}
               <div class="grid gap-2 sm:grid-cols-2">

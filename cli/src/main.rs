@@ -266,8 +266,10 @@ fn main() -> Result<()> {
                 println!("character.json: {}", character_path.display());
                 println!("level {}  phase {}  endurance {}%", state.level, state.phase(), state.endurance);
                 println!("resistances: {}", state.resistance_list().iter().map(|(e, v)| format!("{e} {v:.0}%")).collect::<Vec<_>>().join(", "));
-                println!("Heaven's Bulwark {} pts, Healing Hands specced {}, Solarum Plate {}, Nagasa Scymitar {}",
-                         state.heavens_bulwark_points, state.healing_hands_specced, state.solarum_plate_equipped, state.nagasa_scymitar_equipped);
+                let facts = profile.describe_facts(&state);
+                if !facts.is_empty() {
+                    println!("build facts: {}", facts.join(", "));
+                }
                 println!("\nguide profile: {}", profile.name);
                 for rule in &profile.stats {
                     let status = if rule.is_active(&state) { format!("active  w={:.2}", rule.weight) } else {

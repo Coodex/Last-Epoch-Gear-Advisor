@@ -17,7 +17,7 @@ fn state() -> CharacterState {
     for (e, v) in [("fire", 62.0), ("cold", 75.0), ("lightning", 70.0), ("physical", 40.0), ("necrotic", 55.0), ("void", 48.0), ("poison", 60.0)] {
         s.resistances.insert(e.into(), v);
     }
-    s.healing_hands_specced = true;
+    s.flags.insert("healing_hands_specced".into(), true);
     s
 }
 
@@ -155,16 +155,16 @@ fn conditions_from_character_state_change_the_verdict() {
     let data = data();
     let profile = GuideProfile::embedded();
     let mut state = state();
-    state.healing_hands_specced = false;
+    state.flags.insert("healing_hands_specced".into(), false);
     let regen = parse_tooltip_text("MOURNFUL PENNANT\nRELIC\n+10 Mana\n+5% Cast Speed\n+40% Increased Health Regeneration\nRequires: Level 12", data);
     let with_regen_wanted = compare(&regen, &EquippedProfile::default(), data, &profile, &state);
-    state.healing_hands_specced = true;
+    state.flags.insert("healing_hands_specced".into(), true);
     let with_regen_unwanted = compare(&regen, &EquippedProfile::default(), data, &profile, &state);
     assert!(with_regen_wanted.candidate_score > 0.5);
     assert!(with_regen_unwanted.candidate_score < 0.1);
 
     let mut nagasa = state.clone();
-    nagasa.nagasa_scymitar_equipped = true;
+    nagasa.flags.insert("nagasa_scymitar_equipped".into(), true);
     let spell = parse_tooltip_text("SILVER RING\nRING\n+5% Elemental Resistance\n+25% Increased Spell Damage\nRequires: Level 1", data);
     let without = compare(&spell, &EquippedProfile::default(), data, &profile, &state);
     let with = compare(&spell, &EquippedProfile::default(), data, &profile, &nagasa);

@@ -5,6 +5,36 @@
   "resistance_cap": 75,
   "resistance_reference_roll": 30,
   "tier_target": 5,
+  "facts": [
+    {
+      "key": "heavens_bulwark_points",
+      "label": "Heaven's Bulwark points",
+      "kind": "counter",
+      "default_count": 0,
+      "note": "passive node in the Paladin tree; 5 points turn off ailment chance and turn on block stats"
+    },
+    {
+      "key": "healing_hands_specced",
+      "label": "Healing Hands specialised",
+      "kind": "flag",
+      "default_on": false,
+      "note": "health regen is near worthless once Healing Hands is specialised"
+    },
+    {
+      "key": "solarum_plate_equipped",
+      "label": "Solarum Plate equipped",
+      "kind": "flag",
+      "default_on": false,
+      "note": "endurance is worthless once Solarum Plate is equipped"
+    },
+    {
+      "key": "nagasa_scymitar_equipped",
+      "label": "Nagasa Scymitar equipped",
+      "kind": "flag",
+      "default_on": false,
+      "note": "spell damage only matters with Nagasa Scymitar"
+    }
+  ],
   "stats": [
     {
       "key": "ailment_chance",
@@ -20,8 +50,10 @@
       ],
       "conditions": [
         {
-          "heavens_bulwark_points": {
-            "max": 4
+          "counters": {
+            "heavens_bulwark_points": {
+              "max": 4
+            }
           }
         }
       ],
@@ -137,7 +169,9 @@
       ],
       "conditions": [
         {
-          "nagasa_scymitar_equipped": true
+          "flags": {
+            "nagasa_scymitar_equipped": true
+          }
         }
       ],
       "note": "only with Nagasa Scymitar"
@@ -156,7 +190,9 @@
       ],
       "conditions": [
         {
-          "healing_hands_specced": false
+          "flags": {
+            "healing_hands_specced": false
+          }
         }
       ],
       "note": "near zero once Healing Hands is specialised"
@@ -322,7 +358,9 @@
       ],
       "conditions": [
         {
-          "solarum_plate_equipped": false
+          "flags": {
+            "solarum_plate_equipped": false
+          }
         }
       ],
       "note": "worthless once Solarum Plate is equipped"
@@ -362,8 +400,10 @@
       ],
       "conditions": [
         {
-          "heavens_bulwark_points": {
-            "min": 5
+          "counters": {
+            "heavens_bulwark_points": {
+              "min": 5
+            }
           }
         }
       ],
@@ -382,8 +422,10 @@
       ],
       "conditions": [
         {
-          "heavens_bulwark_points": {
-            "min": 5
+          "counters": {
+            "heavens_bulwark_points": {
+              "min": 5
+            }
           }
         }
       ],
