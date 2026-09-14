@@ -58,6 +58,9 @@ pub struct CharacterState {
     /// physical, necrotic, void, poison), as shown on the character sheet.
     pub resistances: HashMap<String, f64>,
     pub endurance: f64,
+    /// maximum Health and Mana from the sheet (0 = not read yet)
+    pub health: f64,
+    pub mana: f64,
     pub heavens_bulwark_points: u32,
     pub healing_hands_specced: bool,
     pub solarum_plate_equipped: bool,
@@ -77,6 +80,8 @@ impl Default for CharacterState {
             phase: None,
             resistances: ELEMENTS.iter().map(|e| (e.to_string(), 0.0)).collect(),
             endurance: 0.0,
+            health: 0.0,
+            mana: 0.0,
             heavens_bulwark_points: 0,
             healing_hands_specced: false,
             solarum_plate_equipped: false,

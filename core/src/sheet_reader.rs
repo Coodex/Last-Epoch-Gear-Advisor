@@ -20,6 +20,9 @@ pub struct SheetReading {
     /// element -> uncapped total in percent
     pub resistances: HashMap<String, f64>,
     pub endurance: Option<f64>,
+    /// the sheet's HEALTH / MANA totals
+    pub health: Option<f64>,
+    pub mana: Option<f64>,
     /// element name boxes found on the sheet (for the crop fallback)
     #[serde(skip)]
     pub name_boxes: Vec<(String, OcrBox)>,
@@ -54,6 +57,18 @@ impl SheetReading {
             }
             state.endurance = endurance;
         }
+        if let Some(health) = self.health {
+            if (state.health - health).abs() >= 0.5 {
+                changes.push(format!("health {:.0} -> {health:.0}", state.health));
+            }
+            state.health = health;
+        }
+        if let Some(mana) = self.mana {
+            if (state.mana - mana).abs() >= 0.5 {
+                changes.push(format!("mana {:.0} -> {mana:.0}", state.mana));
+            }
+            state.mana = mana;
+        }
         changes
     }
 }
@@ -69,6 +84,31 @@ fn percent_value(text: &str) -> Option<f64> {
     }
     let digits: String = fixed.chars().take_while(|c| *c != '%').filter(|c| c.is_ascii_digit() || *c == '.').collect();
     digits.parse().ok()
+}
+
+/// The sheet's big "HEALTH 1734" / "MANA 126" figures: an upper-case label
+/// with the number in the same box or in the next box on the same row.
+/// Lower-case "Health"/"Mana" rows of the stat tables never match.
+fn labelled_number(boxes: &[OcrBox], label: &str) -> Option<f64> {
+    for b in boxes {
+        let text = b.text.trim();
+        let Some(rest) = text.strip_prefix(label) else { continue };
+        let rest = rest.trim();
+        if rest.is_empty() {
+            // number in the next box on the same row, close to the label
+            let mut row: Vec<&OcrBox> = boxes
+                .iter()
+                .filter(|n| (n.y - b.y).abs() < b.h.max(10.0) && n.x > b.x + b.w * 0.8 && n.x - (b.x + b.w) < b.w * 1.5)
+                .collect();
+            row.sort_by(|p, q| p.x.partial_cmp(&q.x).unwrap());
+            if let Some(v) = row.iter().filter_map(|n| n.text.trim().replace(',', "").parse::<f64>().ok()).next() {
+                return Some(v);
+            }
+        } else if let Ok(v) = rest.replace(',', "").parse::<f64>() {
+            return Some(v);
+        }
+    }
+    None
 }
 
 fn overlaps(a: &OcrBox, b: &OcrBox) -> bool {
@@ -129,6 +169,8 @@ pub fn read_sheet(boxes: &[OcrBox]) -> Option<SheetReading> {
         row.sort_by(|a, b| a.x.partial_cmp(&b.x).unwrap());
         reading.endurance = row.iter().filter_map(|b| percent_value(&b.text)).next();
     }
+    reading.health = labelled_number(boxes, "HEALTH").filter(|v| (1.0..100000.0).contains(v));
+    reading.mana = labelled_number(boxes, "MANA").filter(|v| (1.0..100000.0).contains(v));
     Some(reading)
 }
 
@@ -227,6 +269,23 @@ mod tests {
         boxes.push(b("57%", 510.0, 962.0, 40.0));
         let reading = read_sheet(&boxes).unwrap();
         assert_eq!(reading.endurance, Some(57.0));
+    }
+
+    #[test]
+    fn health_and_mana_come_from_the_upper_case_headers_only() {
+        let mut boxes = vec![b("RESISTANCES", 400.0, 400.0, 150.0), b("FIRE", 100.0, 480.0, 70.0), b("75%", 110.0, 505.0, 40.0), b("COLD", 210.0, 480.0, 70.0), b("66%", 220.0, 505.0, 40.0)];
+        boxes.push(b("HEALTH", 265.0, 328.0, 88.0));
+        boxes.push(b("1734", 363.0, 328.0, 47.0));
+        boxes.push(b("MANA 330", 600.0, 328.0, 90.0));
+        boxes.push(b("Health", 559.0, 924.0, 55.0)); // stat table row, ignored
+        boxes.push(b("0", 700.0, 924.0, 10.0));
+        boxes.push(b("MANA", 639.0, 716.0, 53.0)); // "+21 MANA" from a tooltip: no number to its right
+        let reading = read_sheet(&boxes).unwrap();
+        assert_eq!(reading.health, Some(1734.0));
+        assert_eq!(reading.mana, Some(330.0));
+        let mut state = CharacterState::default();
+        let changes = reading.apply(&mut state);
+        assert!(changes.iter().any(|c| c.starts_with("mana 0 -> 330")));
     }
 
     #[test]

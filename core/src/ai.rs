@@ -602,7 +602,14 @@ fn describe_priorities(profile: &GuideProfile, state: &CharacterState) -> String
 }
 
 fn describe_state(state: &CharacterState, profile: &GuideProfile) -> String {
-    let mut out = format!("Character: level {}, phase {}, endurance {:.0}%\n", state.level, state.phase(), state.endurance);
+    let mut out = format!("Character: level {}, phase {}, endurance {:.0}%", state.level, state.phase(), state.endurance);
+    if state.health > 0.0 {
+        out.push_str(&format!(", maximum Health {:.0}", state.health));
+    }
+    if state.mana > 0.0 {
+        out.push_str(&format!(", maximum Mana {:.0}", state.mana));
+    }
+    out.push('\n');
     out.push_str("Resistances (cap 75%): ");
     out.push_str(&state.resistance_list().iter().map(|(e, v)| format!("{e} {v:.0}%")).collect::<Vec<_>>().join(", "));
     out.push('\n');

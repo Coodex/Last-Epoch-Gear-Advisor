@@ -329,8 +329,8 @@ fn state_identity(state: &CharacterState) -> String {
     let mut counters: Vec<String> = state.counters.iter().map(|(k, v)| format!("{k}={v}")).collect();
     counters.sort();
     format!(
-        "L{} {} e{} hb{} hh{} sp{} ns{} [{}] [{}] [{}]",
-        state.level, state.phase(), state.endurance.round(), state.heavens_bulwark_points, state.healing_hands_specced,
+        "L{} {} e{} h{} m{} hb{} hh{} sp{} ns{} [{}] [{}] [{}]",
+        state.level, state.phase(), state.endurance.round(), state.health.round(), state.mana.round(), state.heavens_bulwark_points, state.healing_hands_specced,
         state.solarum_plate_equipped, state.nagasa_scymitar_equipped, res.join(","), flags.join(","), counters.join(",")
     )
 }

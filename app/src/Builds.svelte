@@ -441,7 +441,7 @@
                 {#each Object.entries(character.resistances) as [e, v]}
                   <span class="ml-1 whitespace-nowrap"><span class="capitalize">{e}</span> <span class={v >= 75 ? "text-le-upgrade" : "text-le-side"}>{Math.round(v)}%</span></span>
                 {/each}
-                · endurance {Math.round(character.endurance)}%
+                · endurance {Math.round(character.endurance)}%{#if character.health} · health {Math.round(character.health)}{/if}{#if character.mana} · mana {Math.round(character.mana)}{/if}
               </div>
             </div>
             <div class="h-px bg-le-gold/15"></div>

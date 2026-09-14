@@ -131,6 +131,8 @@ export interface CharacterState {
   phase: "early" | "intermediate" | "final" | null;
   resistances: Record<string, number>;
   endurance: number;
+  health: number;
+  mana: number;
   heavens_bulwark_points: number;
   healing_hands_specced: boolean;
   solarum_plate_equipped: boolean;

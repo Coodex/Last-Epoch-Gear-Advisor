@@ -53,7 +53,7 @@ guide once, see [Your build](#your-build-paste-a-guide).
 | **Numpad0** | Capture, read both tooltips, score them against the active build, show the card. |
 | **Numpad1** | Numpad0, then the tooltip crops, the scores and your character go to the AI model you picked; the card updates with its verdict and one-line summary. Identical item/equipped/model combinations are answered from a local cache without a request. |
 | **Numpad3** | Cycle the AI model through the list you set up (only models with a key). A toast names the new one. |
-| **Numpad0 over the character sheet** | With nothing hovered: reads level and resistances from the sheet. Also happens on every scan when the sheet is open in the capture. |
+| **Numpad0 over the character sheet** | With nothing hovered: reads level, resistances, endurance, Health and Mana from the sheet. Also happens on every scan when the sheet is open in the capture. |
 
 Hotkeys are registered system-wide, so the game never sees them. They are
 changeable in `settings.json` (avoid Alt/Ctrl chords: holding those changes
