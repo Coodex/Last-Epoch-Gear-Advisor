@@ -74,8 +74,24 @@ impl Panel {
         self.lines[..self.compare_cut()].to_vec()
     }
 
+    /// Where the game's compare block starts: the first coloured line that
+    /// comes after at least one neutral stat line ("+42% Poison Resistance").
+    /// Coloured lines before any stat line are the item's own header (an
+    /// orange unique title, a red class-restricted type line), which matters
+    /// when OCR glued a numeric HUD readout above the tooltip and pushed the
+    /// title past the first lines.
     fn compare_cut(&self) -> usize {
-        self.tints.iter().enumerate().skip(3).find(|(_, t)| **t != Tint::Neutral).map(|(i, _)| i).unwrap_or(self.lines.len())
+        let mut stat_seen = false;
+        for (i, line) in self.lines.iter().enumerate() {
+            let tint = self.tints.get(i).copied().unwrap_or(Tint::Neutral);
+            if tint != Tint::Neutral && stat_seen && i >= 3 {
+                return i;
+            }
+            if tint == Tint::Neutral && looks_like_stat_line(line) {
+                stat_seen = true;
+            }
+        }
+        self.lines.len()
     }
 
     /// The game's own "compare with equipped" block under the item: each line
@@ -392,6 +408,14 @@ pub fn panels(boxes: &[OcrBox], cursor: Option<(f32, f32)>) -> Vec<Panel> {
     out
 }
 
+/// "+42% Poison Resistance", "1 Legendary Potential": a leading sign or digit
+/// followed by words. A bare HUD number ("2055 257.6") has no letters.
+fn looks_like_stat_line(line: &str) -> bool {
+    let t = line.trim();
+    let starts = t.starts_with('+') || t.starts_with('-') || t.chars().next().map_or(false, |c| c.is_ascii_digit());
+    starts && t.chars().any(|c| c.is_ascii_alphabetic())
+}
+
 fn is_equipped_word(text: &str) -> bool {
     text.trim().to_lowercase().replace(' ', "") == "equipped"
 }
@@ -622,6 +646,22 @@ mod compare_lines_tests {
         assert!(!panels[0].lines.iter().any(|l| l == "EQUIPPED"));
         assert!(panels[1].is_equipped_compare());
         assert_eq!(panels[1].lines[0], "EQUIPPED");
+    }
+
+    #[test]
+    fn hud_noise_above_a_unique_title_does_not_cut_the_item() {
+        // a hardware monitor readout merged above the tooltip; the orange title is line 3
+        let lines = ["54", "2055 257 .6", "32 - 4525 125.9", "ELECOE'S INNOVATION", "BELT", "UNIQUE SPIDERSILK SASH",
+                     "+42% POISON RESISTANCE", "+53% COLD RESISTANCE", "Elecoe discovered that", "1500", "153 WARD GAINED ON POTION USE"];
+        let mut tints = vec![Tint::Neutral; lines.len()];
+        tints[3] = Tint::Red; // unique title
+        tints[8] = Tint::Red; // flavour text
+        tints[10] = Tint::Green; // compare block
+        let panel = Panel { lines: lines.iter().map(|s| s.to_string()).collect(), tints, rect: (1188, 43, 499, 1192), distance: 0.0 };
+        let kept = panel.item_lines();
+        assert!(kept.iter().any(|l| l == "BELT"), "kept: {kept:?}");
+        assert!(kept.iter().any(|l| l == "+53% COLD RESISTANCE"));
+        assert!(!kept.iter().any(|l| l.starts_with("Elecoe discovered")), "flavour text is where the cut lands");
     }
 
     #[test]
