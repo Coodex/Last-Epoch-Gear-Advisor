@@ -72,6 +72,11 @@
         </div>
       {/if}
     </div>
+    {#if !card.ai && card.ai_pending}
+      <div class="mt-1 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-le-purple">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-le-purple/40 bg-le-purple/10 px-1.5 py-px"><span class="spin"></span> asking {card.ai_pending}…</span>
+      </div>
+    {/if}
     {#if card.ai}
       <div class="mt-1 flex flex-wrap items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-le-purple">
         <span class="rounded-full border border-le-purple/60 bg-le-purple/15 px-1.5 py-px">AI · {card.ai.model}</span>

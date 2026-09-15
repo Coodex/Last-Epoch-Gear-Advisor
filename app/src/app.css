@@ -185,3 +185,13 @@ body,
   background: #121009;
   color: #f4f4f5;
 }
+
+/* small spinner for the AI-pending pill on the overlay card */
+.spin {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid rgba(139, 92, 246, 0.35);
+  border-top-color: var(--color-le-purple);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}

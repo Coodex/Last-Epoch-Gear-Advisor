@@ -347,6 +347,9 @@ pub struct Card {
     pub subtitle: String,
     pub equipped_from_tooltip: bool,
     pub ai: Option<AiInfo>,
+    /// model being asked right now (the card shows a spinner until `ai` arrives)
+    #[serde(default)]
+    pub ai_pending: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -553,12 +556,8 @@ impl Engine {
                 return Ok(Outcome::Sheet { summary });
             }
         }
-        let (candidate, candidate_panel) = match candidate {
-            Some(c) => c,
-            None => ocr::pick_item_panel(&panels)
-                .map(|p| (parse_tooltip(&p.item_lines(), self.data), p))
-                .ok_or_else(|| anyhow!("no item tooltip under the cursor"))?,
-        };
+        // nothing recognisable near the cursor: say so instead of judging screen noise
+        let (candidate, candidate_panel) = candidate.ok_or_else(|| anyhow!("no item tooltip under the cursor"))?;
         let equipped_panel: Option<&Panel> = panels.iter().find(|p| p.is_equipped_compare() && p.lines.len() >= 3);
         // a compare tooltip touching the capture's left edge is cut off
         let equipped_clipped = equipped_panel.map_or(false, |p| p.rect.0 <= 2);
@@ -644,6 +643,7 @@ impl Engine {
             equipped_from_tooltip: from_tooltip,
             verdict,
             ai: None,
+            ai_pending: None,
         };
         Ok(Outcome::Card(Scan { card, monitor: shot.monitor, ai_inputs }))
     }
@@ -663,7 +663,9 @@ impl Engine {
             card.ai = Some(AiInfo { cached: true, ..hit.ai });
             return Ok(true);
         }
-        let client = Client::new(model.clone())?;
+        let mut client = Client::new(model.clone())?;
+        // an item verdict must not hang the overlay: cap the round trip
+        client.timeout = std::time::Duration::from_secs(90);
         let profile = self.active_profile();
         let answer = ai::analyze_item(&client, ai::ItemRequest {
             candidate_png: inputs.candidate_png,

@@ -52,6 +52,8 @@ export interface Card {
   subtitle: string;
   equipped_from_tooltip: boolean;
   ai: AiInfo | null;
+  /** model being asked right now; the card shows a spinner until `ai` arrives */
+  ai_pending?: string | null;
 }
 
 export interface Status {

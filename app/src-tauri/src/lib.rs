@@ -124,19 +124,28 @@ fn run_scan(app: AppHandle, mode: ScanMode) {
                         reasons: vec![summary], warnings: vec![], candidate: Default::default(), equipped: None,
                     },
                     x: 0.0, y: 0.0, cursor: (0, 0), seconds: match engine.settings().card_seconds { 0 => 0, s => s + 2 },
-                    subtitle: "resistances and level refreshed from the sheet".into(), equipped_from_tooltip: false, ai: None,
+                    subtitle: "resistances and level refreshed from the sheet".into(), equipped_from_tooltip: false, ai: None, ai_pending: None,
                 });
                 watch_mouse_for_dismiss(app.clone(), match engine.settings().card_seconds { 0 => 0, s => s + 2 });
             }
             Ok(Outcome::Card(scan)) => {
                 let mut card = scan.card;
                 log(&app, &format!("scan ok: {} {} cursor {:?} ({} ms)", card.verdict.label.as_str(), card.verdict.candidate_name, card.cursor, started.elapsed().as_millis()));
+                let settings = engine.settings();
+                let ai_model = match mode {
+                    ScanMode::Ai => settings.ai.item_model(),
+                    ScanMode::Normal => None,
+                };
+                if mode == ScanMode::Ai && scan.ai_inputs.is_some() {
+                    card.ai_pending = ai_model.as_ref().map(|m| m.model.clone());
+                }
                 place_window(&app, card.cursor, &scan.monitor);
                 let _ = app.emit("verdict", &card);
+                // the card is dismissable from the first moment, even while the AI is still thinking
+                watch_mouse_for_dismiss(app.clone(), card.seconds);
                 match (mode, scan.ai_inputs) {
                     (ScanMode::Ai, Some(inputs)) => {
-                        let settings = engine.settings();
-                        match settings.ai.item_model() {
+                        match ai_model {
                             None => status(&app, "no AI model configured (tray > Builds & AI)", "error"),
                             Some(model) => {
                                 if !engine.ai_cache.lock().unwrap().entries.contains_key(&format!("{} || {}", inputs.cache_key, model.label())) {
@@ -146,8 +155,10 @@ fn run_scan(app: AppHandle, mode: ScanMode) {
                                 match engine.ai_judge(&mut card, inputs, &model) {
                                     Ok(cached) => {
                                         log(&app, &format!("AI {}: {} ({} ms{})", model.label(), card.verdict.label.as_str(), ai_started.elapsed().as_millis(), if cached { ", cached" } else { "" }));
+                                        card.ai_pending = None;
                                         place_window_sized(&app, card.cursor, &scan.monitor, WINDOW_H_AI);
                                         let _ = app.emit("verdict", &card);
+                                        watch_mouse_for_dismiss(app.clone(), card.seconds);
                                         if cached {
                                             status(&app, "same items as before: cached AI verdict, no tokens spent", "info");
                                         } else {
@@ -156,6 +167,8 @@ fn run_scan(app: AppHandle, mode: ScanMode) {
                                     }
                                     Err(err) => {
                                         log(&app, &format!("AI error: {err:#}"));
+                                        card.ai_pending = None;
+                                        let _ = app.emit("verdict", &card);
                                         status(&app, format!("AI failed: {err}"), "error");
                                     }
                                 }
@@ -164,7 +177,6 @@ fn run_scan(app: AppHandle, mode: ScanMode) {
                     }
                     _ => status(&app, format!("scan {} ms", started.elapsed().as_millis()), "info"),
                 }
-                watch_mouse_for_dismiss(app.clone(), card.seconds);
             }
             Err(err) => {
                 status(&app, err.to_string(), "error");
