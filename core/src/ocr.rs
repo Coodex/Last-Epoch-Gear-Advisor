@@ -82,13 +82,24 @@ impl Panel {
     /// title past the first lines.
     fn compare_cut(&self) -> usize {
         let mut stat_seen = false;
+        let mut footer_seen = false;
         for (i, line) in self.lines.iter().enumerate() {
             let tint = self.tints.get(i).copied().unwrap_or(Tint::Neutral);
-            if tint != Tint::Neutral && stat_seen && i >= 3 {
-                return i;
+            if tint != Tint::Neutral && i >= 3 {
+                // the compare block: coloured stat lines ("+40% Void Penetration", "-50 Melee Damage")
+                // after the item's own stats, or anything coloured once the requirement / gold
+                // footer has passed. A coloured title or flavour sentence never qualifies.
+                if footer_seen || (stat_seen && starts_like_stat(line)) {
+                    return i;
+                }
             }
-            if tint == Tint::Neutral && looks_like_stat_line(line) {
-                stat_seen = true;
+            if tint == Tint::Neutral {
+                if looks_like_stat_line(line) {
+                    stat_seen = true;
+                }
+                if stat_seen && looks_like_footer(line) {
+                    footer_seen = true;
+                }
             }
         }
         self.lines.len()
@@ -408,12 +419,23 @@ pub fn panels(boxes: &[OcrBox], cursor: Option<(f32, f32)>) -> Vec<Panel> {
     out
 }
 
-/// "+42% Poison Resistance", "1 Legendary Potential": a leading sign or digit
-/// followed by words. A bare HUD number ("2055 257.6") has no letters.
-fn looks_like_stat_line(line: &str) -> bool {
+fn starts_like_stat(line: &str) -> bool {
     let t = line.trim();
-    let starts = t.starts_with('+') || t.starts_with('-') || t.chars().next().map_or(false, |c| c.is_ascii_digit());
-    starts && t.chars().any(|c| c.is_ascii_alphabetic())
+    t.starts_with('+') || t.starts_with('-') || t.chars().next().map_or(false, |c| c.is_ascii_digit())
+}
+
+/// "+42% Poison Resistance", "1 Legendary Potential": a leading sign or digit
+/// followed by a real word. A HUD readout ("80 °C 30 % 4500 MHz 126.0 W") has
+/// digits and unit letters but no word of four letters or more.
+fn looks_like_stat_line(line: &str) -> bool {
+    let has_word = line.split(|c: char| !c.is_ascii_alphabetic()).any(|w| w.len() >= 4);
+    starts_like_stat(line) && has_word
+}
+
+/// "Requires: Level 40" or the bare gold value ("1500") that closes a tooltip.
+fn looks_like_footer(line: &str) -> bool {
+    let t = line.trim();
+    t.to_lowercase().starts_with("requires") || (!t.is_empty() && t.chars().all(|c| c.is_ascii_digit() || c == ','))
 }
 
 fn is_equipped_word(text: &str) -> bool {
@@ -661,7 +683,27 @@ mod compare_lines_tests {
         let kept = panel.item_lines();
         assert!(kept.iter().any(|l| l == "BELT"), "kept: {kept:?}");
         assert!(kept.iter().any(|l| l == "+53% COLD RESISTANCE"));
-        assert!(!kept.iter().any(|l| l.starts_with("Elecoe discovered")), "flavour text is where the cut lands");
+        assert!(!kept.iter().any(|l| l.starts_with("153 WARD")), "the compare block is cut: {kept:?}");
+    }
+
+    #[test]
+    fn hud_units_are_not_stat_lines_and_a_coloured_title_survives() {
+        // "80 °C 30 % 4500 MHz 126.0 W" starts with a digit and has letters, but no word
+        let lines = ["GPU 55 °C", "80 °C 30 % 4500 MHz 126.0 W", "103 FPS", "1.4.7", "DREAMTHORN", "TWO-HANDED SWORD",
+                     "LEGENDARY SPLIT GREATSWORD", "RANGE 2.2M", "+30 MELEE DAMAGE", "+40% VOID PENETRATION",
+                     "Eater of dreams, weaver of nightmares", "875", "Requires: Level 15", "+ 0.08 BASE ATTACK RATE", "-50 MELEE DAMAGE"];
+        let mut tints = vec![Tint::Neutral; lines.len()];
+        tints[4] = Tint::Red; // legendary title
+        tints[10] = Tint::Red; // flavour text
+        tints[13] = Tint::Green;
+        tints[14] = Tint::Red;
+        let panel = Panel { lines: lines.iter().map(|s| s.to_string()).collect(), tints, rect: (900, 40, 450, 1000), distance: 0.0 };
+        let kept = panel.item_lines();
+        assert!(kept.iter().any(|l| l == "TWO-HANDED SWORD"), "kept: {kept:?}");
+        assert!(kept.iter().any(|l| l == "+40% VOID PENETRATION"));
+        assert!(kept.iter().any(|l| l == "Requires: Level 15"));
+        assert!(!kept.iter().any(|l| l.contains("BASE ATTACK RATE")), "compare block cut: {kept:?}");
+        assert_eq!(panel.compare_lines().len(), 2);
     }
 
     #[test]

@@ -360,7 +360,7 @@ pub fn parse_tooltip(lines: &[String], data: &GameData) -> ParsedItem {
 
 fn parse_once(lines: &[String], data: &GameData) -> ParsedItem {
     let mut item = ParsedItem::default();
-    let cleaned: Vec<String> = lines.iter().map(|l| l.trim().to_string()).filter(|l| !l.is_empty()).collect();
+    let cleaned: Vec<String> = lines.iter().map(|l| l.trim().replace('@', "O")).filter(|l| !l.is_empty()).collect();
     if cleaned.is_empty() {
         item.warnings.push("no text".into());
         return item;
@@ -392,7 +392,14 @@ fn parse_once(lines: &[String], data: &GameData) -> ParsedItem {
     // 2. identity: unique first, then base inside the title
     let unique = match_unique(&item.title, item.item_type, data);
     let base = if type_index.is_some() {
-        match_base(&item.title, item.item_type, data)
+        match_base(&item.title, item.item_type, data).or_else(|| {
+            // "UNIQUE SPIDERSILK SASH" / "LEGENDARY SPLIT GREATSWORD" under the type line
+            // names the base even when the title itself was misread
+            body.first().and_then(|l| {
+                let upper = l.trim().to_uppercase();
+                ["UNIQUE ", "LEGENDARY ", "SET "].iter().find_map(|p| upper.strip_prefix(p).map(str::to_string))
+            }).and_then(|rest| match_base(&rest, item.item_type, data))
+        })
     } else {
         // No type line (OCR dropped it): the title is the lines before the first
         // numeric line. Accept a whole-line base match, or a long base name found
