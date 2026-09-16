@@ -709,11 +709,9 @@ mod compare_lines_tests {
         let panels = split_panels(&lines);
         let with_title = panels.iter().find(|p| p.iter().any(|l| l.text == "SHADOW BEACON")).expect("title panel");
         assert!(with_title.iter().any(|l| l.text == "+2 TO VOID SKILLS"), "header and mods merged: {:?}", with_title.iter().map(|l| &l.text).collect::<Vec<_>>());
-        // but text sitting in the gap blocks the bridge
-        let mut blocked = lines.clone();
-        blocked.push(b("TRANSFER", 1300.0, 300.0, 100.0));
-        blocked.push(b("SORT", 1300.0, 318.0, 60.0));
-        let panels = split_panels(&blocked);
+        // but a column far below (another tooltip, the grid) is not bridged
+        let far: Vec<OcrBox> = lines.iter().map(|l| { let mut c = l.clone(); if c.text.starts_with('+') { c.y += 500.0; } c }).collect();
+        let panels = split_panels(&far);
         let with_title = panels.iter().find(|p| p.iter().any(|l| l.text == "SHADOW BEACON")).unwrap();
         assert!(!with_title.iter().any(|l| l.text == "+2 TO VOID SKILLS"));
     }
