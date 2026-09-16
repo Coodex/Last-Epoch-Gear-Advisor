@@ -336,9 +336,19 @@ pub fn split_panels(lines: &[OcrBox]) -> Vec<Vec<OcrBox>> {
                 let (ax0, _ay0, ax1, ay1) = bounds_of(&groups[i]); // upper (header)
                 let (bx0, by0, bx1, _by1) = bounds_of(&groups[j]); // lower (affixes)
                 let gh = groups[i].iter().chain(groups[j].iter()).map(|&k| lines[k].h).fold(0.0, f32::max).max(h);
-                let stacked = by0 >= ay1 - gh && by0 - ay1 <= 8.0 * gh;
                 let overlap = ax1.min(bx1) - ax0.max(bx0);
                 let indented_over = ax0 >= bx0 - tol && ax0 <= bx1 && overlap > 0.0;
+                // OCR sometimes drops a run of implicit lines between the header and the
+                // mods, leaving a wide gap; bridge it as long as no other text sits in between
+                let gap = by0 - ay1;
+                let clear_between = gap <= 8.0 * gh || !groups.iter().enumerate().any(|(k, g)| {
+                    if k == i || k == j {
+                        return false;
+                    }
+                    let (kx0, ky0, kx1, ky1) = bounds_of(g);
+                    kx1.min(bx1) - kx0.max(bx0) > 0.0 && ky1 > ay1 && ky0 < by0
+                });
+                let stacked = by0 >= ay1 - gh && gap <= 22.0 * gh && clear_between;
                 if stacked && indented_over {
                     let lower = groups.remove(j);
                     let upper_index = if j < i { i - 1 } else { i };
@@ -684,6 +694,28 @@ mod compare_lines_tests {
         assert!(kept.iter().any(|l| l == "BELT"), "kept: {kept:?}");
         assert!(kept.iter().any(|l| l == "+53% COLD RESISTANCE"));
         assert!(!kept.iter().any(|l| l.starts_with("153 WARD")), "the compare block is cut: {kept:?}");
+    }
+
+    #[test]
+    fn header_bridges_a_wide_gap_when_nothing_lies_between() {
+        // Shadow Beacon: OCR dropped five implicit lines, leaving ~170 px between the
+        // indented header (icon on the left) and the mods column
+        let b = |text: &str, x: f32, y: f32, w: f32| OcrBox { text: text.into(), x, y, w, h: 14.0, tint: Tint::Neutral };
+        let lines = vec![
+            b("SHADOW BEACON", 1391.0, 125.0, 200.0), b("TWO-HANDED MACE", 1391.0, 160.0, 180.0), b("RANGE 2.4M", 1391.0, 207.0, 90.0),
+            b("+57 MELEE VOID DAMAGE", 1272.0, 392.0, 210.0), b("+55 SPELL VOID DAMAGE", 1272.0, 426.0, 210.0), b("+2 TO VOID SKILLS", 1272.0, 460.0, 160.0),
+            b("CRAFTING MATERIALS", 1750.0, 300.0, 180.0), // elsewhere on screen, not between them
+        ];
+        let panels = split_panels(&lines);
+        let with_title = panels.iter().find(|p| p.iter().any(|l| l.text == "SHADOW BEACON")).expect("title panel");
+        assert!(with_title.iter().any(|l| l.text == "+2 TO VOID SKILLS"), "header and mods merged: {:?}", with_title.iter().map(|l| &l.text).collect::<Vec<_>>());
+        // but text sitting in the gap blocks the bridge
+        let mut blocked = lines.clone();
+        blocked.push(b("TRANSFER", 1300.0, 300.0, 100.0));
+        blocked.push(b("SORT", 1300.0, 318.0, 60.0));
+        let panels = split_panels(&blocked);
+        let with_title = panels.iter().find(|p| p.iter().any(|l| l.text == "SHADOW BEACON")).unwrap();
+        assert!(!with_title.iter().any(|l| l.text == "+2 TO VOID SKILLS"));
     }
 
     #[test]
